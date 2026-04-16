@@ -5,11 +5,12 @@ LIBFT_DIR       = src/libft
 LIBFT           = $(LIBFT_DIR)/libft.a
 CC              = cc
 CFLAGS          = -Wall -Wextra -Werror -g -I$(LIBFT_DIR)
+LDFLAGS			= -lreadline
 
 RM              = rm -rf
 OBJ_DIR         = obj
 
-SRCS            = src/minishell.c
+SRCS            = src/minishell.c	src/utils/utils.c	src/env.c	src/prompt.c
 
 OBJS            = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
@@ -21,7 +22,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
 	@echo -e "$(GREEN)Compiling $(NAME)...$(RESET)"
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
@@ -41,12 +42,12 @@ fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 norm:
-	@ERR_COUNT=$$(norminette src/ includes/ textures/ | grep "Error" | wc -l); \
+	@ERR_COUNT=$$(norminette src/ | grep "Error" | wc -l); \
 	if [ $$ERR_COUNT -eq 0 ]; then \
 		echo -e "$(GREEN)Norminette: TOUT EST PARFAIT !$(RESET)"; \
 	else \
 		echo -e "$(RED)Norminette: ERREURS TROUVÉES :$(RESET)"; \
-		norminette src/ includes/ textures/ | grep "Error"; \
+		norminette src/ | grep "Error"; \
 	fi
 
 re: fclean all

@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 13:33:25 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/16 15:57:41 by hchartie         ###   ########.fr       */
+/*   Created: 2026/04/16 14:04:42 by hchartie          #+#    #+#             */
+/*   Updated: 2026/04/16 15:54:40 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-int	main(int ac, char *av[], char *envp[])
-{
-	t_env_table	*env;
-
-	(void)av;
-	if (ac != 1)
-		return (1);
-	env = create_env(envp);
-	print_env(env);
-}
+size_t	count_double_char(char **tab);
+void	ft_free_all(char **pfree);
+#endif
