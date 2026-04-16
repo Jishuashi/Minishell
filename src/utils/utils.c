@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 13:33:25 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/16 15:57:41 by hchartie         ###   ########.fr       */
+/*   Created: 2026/04/16 14:09:17 by hchartie          #+#    #+#             */
+/*   Updated: 2026/04/16 15:54:25 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../includes/minishell.h"
 
-int	main(int ac, char *av[], char *envp[])
+size_t	count_double_char(char **tab)
 {
-	t_env_table	*env;
+	size_t	res;
 
-	(void)av;
-	if (ac != 1)
-		return (1);
-	env = create_env(envp);
-	print_env(env);
+	res = 0;
+	while (*tab)
+	{
+		res++;
+		tab++;
+	}
+	return (res);
+}
+
+void	ft_free_all(char **pfree)
+{
+	while (*pfree)
+	{
+		free(*pfree);
+		pfree++;
+	}
+	free(pfree);
 }
