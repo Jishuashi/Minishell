@@ -1,19 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 13:33:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/16 12:05:14 by louka            ###   ########.fr       */
+/*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
+/*   Updated: 2026/04/16 12:29:14 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../libft/libft.h"
+#include "includes/minishell.h"
 
-#include "prompt.h"
+const char	*get_prompt(void)
+{
+	return ("minishell> ");
+}
 
-#endif
+int	launch_minishell(void)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline(get_prompt());
+		if (!line)
+			break ;
+		if (line[0] != '\0')
+			add_history(line);
+		free(line);
+	}
+	return (0);
+}
