@@ -6,14 +6,11 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/16 15:30:53 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/17 11:07:58 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-#include <errno.h>
-
-volatile sig_atomic_t	g_signal = 0;
 
 static void	on_sigint(int signum)
 {
@@ -22,6 +19,7 @@ static void	on_sigint(int signum)
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 static void	setup_signals(void)
@@ -64,7 +62,7 @@ int	shell_loop(void)
 		}
 		if (!line)
 		{
-			ft_printf("\nexit");
+			ft_printf("exit");
 			break ;
 		}
 		if (line[0] != '\0')
@@ -76,6 +74,7 @@ int	shell_loop(void)
 
 int	main(void)
 {
+	g_signal = 0;
 	shell_loop();
 	return (0);
 }
