@@ -5,4 +5,4 @@ minishell
 *.old
 *.txt
 src/Makefile
-.pdf
+*.pdf
