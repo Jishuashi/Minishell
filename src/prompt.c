@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/17 11:26:41 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/17 11:28:58 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ int	shell_loop(void)
 	return (0);
 }
 
-int	main(void)
-{
-	g_signal = 0;
-	shell_loop();
-	return (0);
-}
+// int	main(void)
+// {
+// 	g_signal = 0;
+// 	shell_loop();
+// 	return (0);
+// }
