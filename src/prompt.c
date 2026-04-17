@@ -6,11 +6,13 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/17 11:07:58 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/17 11:13:20 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+volatile sig_atomic_t	g_signal = 0;
 
 static void	on_sigint(int signum)
 {
