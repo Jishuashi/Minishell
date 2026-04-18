@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 12:31:25 by louka             #+#    #+#             */
-/*   Updated: 2026/04/17 13:06:43 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/18 21:53:05 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	count_tokens(const char *line)
 	return (count);
 }
 
-char **token(char *line)
+char	**token(char *line)
 {
 	char	**tokens;
 	int		nb_de_token;
@@ -58,7 +58,18 @@ char **token(char *line)
 	if (!line)
 		return (NULL);
 	nb_de_token = count_tokens(line);
-	tokens = ft_calloc(nb_de_token, sizeof(char *));
-    // printf("DEBUG    NB DE TOKEN : %d\n", nb_de_token);
+	tokens = ft_calloc(nb_de_token + 1, sizeof(char *));
+	if (!tokens)
+		return (NULL);
+	split_token(tokens, line);
+	printf("DEBUG    NB DE TOKEN : %d\n", nb_de_token);
+	int	i;
+	i = 0;
+	while (i < nb_de_token)
+	{
+		printf("DEBUG    token[%d]: %s\n", i,
+			(tokens[i] ? tokens[i] : "(null)"));
+		i++;
+	}
 	return (tokens);
 }

@@ -6,13 +6,14 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 12:30:32 by louka             #+#    #+#             */
-/*   Updated: 2026/04/17 12:37:05 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/18 21:47:00 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
 
-char **token(char *line);
+char	**token(char *line);
+char	**split_token(char **token, char *line);
 
 #endif

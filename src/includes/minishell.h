@@ -16,4 +16,5 @@
 # include "prompt.h"
 # include "env.h"
 # include "utils.h"
+# include "token.h"
 #endif
