@@ -11,6 +11,7 @@ RM              = rm -rf
 OBJ_DIR         = obj
 
 SRCS            = src/minishell.c	src/utils/utils.c	src/env.c	src/prompt.c
+				  src/token_split.c	src/token.c
 
 OBJS            = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
