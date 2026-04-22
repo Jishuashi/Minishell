@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   extend.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 13:33:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/22 15:22:57 by louka            ###   ########.fr       */
+/*   Created: 2026/04/22 15:23:49 by louka             #+#    #+#             */
+/*   Updated: 2026/04/22 15:24:20 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../libft/libft.h"
-# include "prompt.h"
-# include "env.h"
-# include "utils.h"
-# include "token.h"
-# include "extend.h"
+#ifdef EXTAND_H
+# define EXTAND_H
+
 #endif
