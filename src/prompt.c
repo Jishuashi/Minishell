@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/17 12:58:16 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/22 15:27:19 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,11 @@ const char	*get_prompt(void)
 	return ("minishell> ");
 }
 
-int	shell_loop(void)
+int	shell_loop(t_env_table *env)
 {
 	char	*line;
 
+	(void)env;
 	setup_signals();
 	while (1)
 	{
@@ -71,12 +72,5 @@ int	shell_loop(void)
 		token(line);
 		free(line);
 	}
-	return (0);
-}
-
-int	main(void)
-{
-	g_signal = 0;
-	shell_loop();
 	return (0);
 }
