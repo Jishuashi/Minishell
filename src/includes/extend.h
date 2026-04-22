@@ -6,11 +6,11 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:23:49 by louka             #+#    #+#             */
-/*   Updated: 2026/04/22 15:24:20 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/22 15:46:18 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifdef EXTAND_H
-# define EXTAND_H
+#ifndef EXTEND_H
+# define EXTEND_H
 
 #endif
