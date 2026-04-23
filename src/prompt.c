@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/22 15:27:19 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/23 13:12:21 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	shell_loop(t_env_table *env)
 {
 	char	*line;
 
-	(void)env;
 	setup_signals();
 	while (1)
 	{
@@ -69,7 +68,7 @@ int	shell_loop(t_env_table *env)
 		}
 		if (line[0] != '\0')
 			add_history(line);
-		token(line);
+		token(line, env);
 		free(line);
 	}
 	return (0);
