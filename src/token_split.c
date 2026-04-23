@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 21:45:48 by louka             #+#    #+#             */
-/*   Updated: 2026/04/23 13:12:21 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/23 13:34:43 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char	**split_token(char **token, char *line, t_env_table *env)
 	int	i;
 	int	j;
 
-	(void)env;
 	i = 0;
 	j = 0;
 	while (line[i])
@@ -83,6 +82,7 @@ char	**split_token(char **token, char *line, t_env_table *env)
 		if (!token[j])
 			return (NULL);
 		copy_token(token[j], line, &i);
+		token[j] = extend(token[j], env);
 		j++;
 	}
 	token[j] = NULL;

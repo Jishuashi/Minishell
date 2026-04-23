@@ -6,8 +6,13 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/22 15:44:39 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/23 13:44:31 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "includes/env.h"
+
+char	*extend(char *token, t_env_table *env)
+{
+	
+}
