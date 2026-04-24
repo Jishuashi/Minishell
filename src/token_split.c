@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 21:45:48 by louka             #+#    #+#             */
-/*   Updated: 2026/04/23 13:34:43 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/24 11:49:27 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static int	token_len(const char *line, int i)
 		{
 			quote = toggle_quote(quote, line[i]);
 			i++;
-			continue ;
 		}
 		len++;
 		i++;
@@ -45,24 +44,33 @@ static int	token_len(const char *line, int i)
 	return (len);
 }
 
-static void	copy_token(char *dst, char *line, int *i)
+static char	copy_token(char *dst, char *line, int *i)
 {
 	int		k;
-	char	quote;
+	char	*quote;
 
 	k = 0;
-	quote = 0;
-	while (line[*i] && (line[*i] != ' ' || quote))
+	quote = calloc(1, 2);
+	quote[0] = 0;
+	quote[1] = 0;
+	while (line[*i] && (line[*i] != ' ' || quote[0]))
 	{
-		if (is_quote(line[*i]) && (!quote || quote == line[*i]))
+		quote[1] = 0;
+		if (is_quote(line[*i]) && (!quote[0] || quote[0] == line[*i]))
 		{
-			quote = toggle_quote(quote, line[*i]);
+			quote[0] = toggle_quote(quote[0], line[*i]);
+			if (quote[0] == '\'')
+				quote[1] = '\'';
 			(*i)++;
-			continue ;
+		}
+		if (quote[0] == '\'' && line[*i] == '$')
+		{
+			dst[k++] = 31;
+			(*i)++;
 		}
 		dst[k++] = line[(*i)++];
 	}
-	dst[k] = '\0';
+	return (dst[k] = '\0', quote[1]);
 }
 
 char	**split_token(char **token, char *line, t_env_table *env)

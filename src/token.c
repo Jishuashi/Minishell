@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 12:31:25 by louka             #+#    #+#             */
-/*   Updated: 2026/04/23 13:12:21 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/23 14:07:30 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,18 @@ char	**token(char *line, t_env_table *env)
 	if (!tokens)
 		return (NULL);
 	split_token(tokens, line, env);
+
+	//debfug
+		printf("DEBUG    NB DE TOKEN : %d\n", nb_de_token);
+	int	i;
+	i = 0;
+	while (i < nb_de_token)
+	{
+		printf("DEBUG    token[%d]: %s\n", i,
+			(tokens[i] ? tokens[i] : "(null)"));
+		i++;
+	}
+
+	//debug
 	return (tokens);
 }

@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   calloc_extend.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/16 14:00:59 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/24 11:59:13 by louka            ###   ########.fr       */
+/*   Created: 2026/04/24 12:00:44 by louka             #+#    #+#             */
+/*   Updated: 2026/04/24 12:01:07 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
-# include "../libft/libft.h"
 
-typedef struct s_env
+
+#include "includes/minishell.h"
+
+int	calloc_tout(char ***var, int **i)
 {
-	char	*name;
-	char	*value;
-}	t_env;
-typedef struct s_env_table
-{
-	t_env	*table;
-	size_t	size;
-}	t_env_table;
-
-t_env_table	*create_env(char *envp[]);
-void		print_env(t_env_table *env);
-int			calloc_tout(char ***var, int **i);
-char		*get_value(char	*key, t_env_table *env);
-
-#endif
+	*i = ft_calloc(2, sizeof(int));
+	*var = ft_calloc(4, sizeof(char *));
+	if (!*i || !*var)
+	{
+		free(*i);
+		free(*var);
+		return (0);
+	}
+	(*var)[3] = ft_calloc(2048, sizeof(char));
+	if (!(*var)[3])
+	{
+		free(*i);
+		free(*var);
+		return (0);
+	}
+	return (1);
+}
