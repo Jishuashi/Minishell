@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:33:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/22 15:22:57 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/24 15:24:03 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,5 @@
 # include "utils.h"
 # include "token.h"
 # include "extend.h"
+# include "args.h"
 #endif
