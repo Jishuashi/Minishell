@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 13:58:13 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/23 13:58:56 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/24 17:22:11 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*get_value(char	*key, t_env_table *env)
 	i = 0;
 	while (i < env->size)
 	{
-		if (ft_strncmp(env->table[i].name, key, ft_strlen(key)) == 0)
+		if (ft_strncmp(env->table[i].name, key, ft_strlen(key) + 1) == 0)
 			return (env->table[i].value);
 		i++;
 	}

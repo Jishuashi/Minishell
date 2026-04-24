@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_extend.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/24 15:27:43 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/24 17:22:11 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,44 +56,49 @@ static void	need_extend(char **var, t_env_table *env, int *i, char *token)
 	}
 }
 
-static void	single_quote(char *token)
+static void	append_char(char *dst, int *dst_i, char c)
 {
-	int	i;
-
-	i = 0;
-	while (token[i])
-	{
-		if (token[i] == 31)
-			token[i] = '$';
-		i++;
-	}
+	dst[*dst_i] = c;
+	(*dst_i)++;
 }
 
 static char	*replace_var(char *token, t_env_table *env)
 {
 	char	**var;
 	int		*i;
+	int		in_single_quote;
+	int		in_double_quote;
 
 	if (!calloc_all(&var, &i))
 		return (token);
 	i[0] = 0;
 	i[1] = 0;
+	in_single_quote = 0;
+	in_double_quote = 0;
 	while (token[i[0]])
 	{
-		if (token[i[0]] == '$')
+		if (token[i[0]] == '\'' && !in_double_quote)
+		{
+			in_single_quote = !in_single_quote;
+			i[0]++;
+			continue ;
+		}
+		if (token[i[0]] == '"' && !in_single_quote)
+		{
+			in_double_quote = !in_double_quote;
+			i[0]++;
+			continue ;
+		}
+		if (token[i[0]] == '$' && !in_single_quote)
 			need_extend(var, env, i, token);
 		else
-		{
-			var[3][i[1]++] = token[i[0]];
-			i[0]++;
-		}
+			append_char(var[3], &i[1], token[i[0]++]);
 	}
 	var[3][i[1]] = '\0';
 	free(i);
 	free(token);
 	token = var[3];
 	free(var);
-	single_quote(token);
 	return (token);
 }
 
