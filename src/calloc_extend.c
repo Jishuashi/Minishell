@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extend.h                                           :+:      :+:    :+:   */
+/*   calloc_extend.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/22 15:23:49 by louka             #+#    #+#             */
-/*   Updated: 2026/04/23 13:43:53 by louka            ###   ########.fr       */
+/*   Created: 2026/04/24 12:00:44 by louka             #+#    #+#             */
+/*   Updated: 2026/04/24 12:01:07 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXTEND_H
-# define EXTEND_H
 
-typedef struct s_env_table	t_env_table;
 
-char	*extend(char *token, t_env_table *env);
+#include "includes/minishell.h"
 
-#endif
+int	calloc_tout(char ***var, int **i)
+{
+	*i = ft_calloc(2, sizeof(int));
+	*var = ft_calloc(4, sizeof(char *));
+	if (!*i || !*var)
+	{
+		free(*i);
+		free(*var);
+		return (0);
+	}
+	(*var)[3] = ft_calloc(2048, sizeof(char));
+	if (!(*var)[3])
+	{
+		free(*i);
+		free(*var);
+		return (0);
+	}
+	return (1);
+}
