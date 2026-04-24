@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_extend.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/24 11:59:41 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/24 15:27:43 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static char	*replace_var(char *token, t_env_table *env)
 	char	**var;
 	int		*i;
 
-	if (!calloc_tout(&var, &i))
+	if (!calloc_all(&var, &i))
 		return (token);
 	i[0] = 0;
 	i[1] = 0;

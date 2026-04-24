@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calloc_extend.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 12:00:44 by louka             #+#    #+#             */
-/*   Updated: 2026/04/24 12:01:07 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/24 15:27:43 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "includes/minishell.h"
 
-int	calloc_tout(char ***var, int **i)
+int	calloc_all(char ***var, int **i)
 {
 	*i = ft_calloc(2, sizeof(int));
 	*var = ft_calloc(4, sizeof(char *));
