@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:23:11 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 18:41:58 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 19:05:49 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,8 @@ static int	count_file(char **tokens)
 
 static	t_args	*fill_args(t_args *args, char **tokens)
 {
-	int	i;
-
 	args->files = parse_files(tokens, args->files, count_file(tokens));
 	if (!args->files)
 		return (NULL);
-	i = 0;
-	while (i < count_file(tokens))
-	{
-		printf("Path : %s\n", args->files[i]->path);
-		printf("Type : %s\n", args->files[i]->type);
-		printf("Del : %s\n", args->files[i]->delimiter);
-		i++;
-	}
 	return (args);
 }
