@@ -10,9 +10,10 @@ LDFLAGS			= -lreadline
 RM              = rm -rf
 OBJ_DIR         = obj
 
-SRCS            = src/minishell.c		src/utils/utils.c		src/env.c				src/prompt.c \
-				  src/token_split.c		src/token.c				src/args.c				src/variable_extend.c \
-				  src/calloc_extend.c	src/utils/parse_files.c	src/utils/parse_cmd.c	src/utils/free.c
+SRCS            = src/minishell.c		src/utils/utils.c		src/env.c				src/prompt.c 			\
+				  src/token_split.c		src/token.c				src/args.c				src/variable_extend.c 	\
+				  src/calloc_extend.c	src/utils/parse_files.c	src/utils/parse_cmd.c	src/utils/free.c 		\
+				  src/open_file.c
 
 OBJS            = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 

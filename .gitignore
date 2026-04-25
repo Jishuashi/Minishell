@@ -10,3 +10,4 @@ mac
 *.sh
 valgrind_tmp.log
 readline.supp
+*.log
