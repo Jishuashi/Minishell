@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/24 15:24:57 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 04:54:07 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ volatile sig_atomic_t	g_signal;
 static void	on_sigint(int signum)
 {
 	(void)signum;
-	g_signal = SIGINT;
+	g_signal = 0;
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -51,26 +51,16 @@ const char	*get_prompt(void)
 int	shell_loop(t_env_table *env)
 {
 	char	*line;
-	char	**tokens;
 
 	setup_signals();
 	while (1)
 	{
 		line = readline(get_prompt());
-		if (g_signal == SIGINT)
-		{
-			g_signal = 0;
-			free(line);
-		}
 		if (!line)
-		{
-			ft_printf("exit");
 			break ;
-		}
 		if (line[0] != '\0')
 			add_history(line);
-		tokens = token(line, env);
-		(void)tokens;
+		parse_args(token(line, env));
 		free(line);
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 12:31:25 by louka             #+#    #+#             */
-/*   Updated: 2026/04/24 14:13:23 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/24 16:37:21 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,17 @@ char	**token(char *line, t_env_table *env)
 		return (NULL);
 	split_token(tokens, line, env);
 	return (tokens);
+}
+
+int	len_token(char	**tokens)
+{
+	int	res;
+
+	res = 0;
+	while (*tokens)
+	{
+		res++;
+		tokens++;
+	}
+	return (res);
 }
