@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 15:47:37 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 18:52:31 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 19:46:27 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ char	*get_file_type(char **tokens, int idx)
 
 static char	*check_file_path(char *path)
 {
-	if (ft_strchr(path, '/') && path[0] != '.')
-		return (ft_strdup(path));
-	else if (ft_strchr(path, '/') && path[0] == '.')
+	if (ft_strchr(path, '/') && path[1] != '/')
 		return (ft_strjoin("./", path));
+	else if (ft_strchr(path, '/') && path[0] == '.')
+		return (ft_strdup(path));
 	else
 		return (ft_strjoin("./", path));
 }
