@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:24:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 17:43:53 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 20:15:17 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 typedef struct s_cmd
 {
-	char	*name;
-	char	*binary;
+	char	*path;
 	char	*args[];
 }	t_cmd;
 
@@ -29,7 +28,7 @@ typedef struct s_file
 
 typedef struct s_args
 {
-	t_cmd	*cmds;
+	t_cmd	**cmds;
 	t_file	**files;
 }	t_args;
 

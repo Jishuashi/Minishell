@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:23:11 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 19:05:49 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 20:55:29 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_args	*parse_args(char **tokens)
 	args = (t_args *)malloc(sizeof(t_args));
 	if (!args)
 		return (NULL);
-	args->cmds = (t_cmd *)malloc(sizeof(t_cmd) * count_cmd(tokens));
+	args->cmds = (t_cmd **)malloc(sizeof(t_cmd *) * count_cmd(tokens));
 	if (!args->cmds)
 	{
 		free(args);
@@ -87,8 +87,13 @@ static int	count_file(char **tokens)
 
 static	t_args	*fill_args(t_args *args, char **tokens)
 {
+	int	i;
+
 	args->files = parse_files(tokens, args->files, count_file(tokens));
 	if (!args->files)
+		return (NULL);
+	args->cmds = parse_cmd(tokens, args->cmds);
+	if (!args->cmds)
 		return (NULL);
 	return (args);
 }
