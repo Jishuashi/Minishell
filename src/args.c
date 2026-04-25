@@ -6,14 +6,15 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:23:11 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 15:38:01 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 15:47:09 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-static int	count_cmd(char **tokens);
-static int	count_files(char **tokens);
+static int		count_cmd(char **tokens);
+static int		count_files(char **tokens);
+static t_args	*put_in_args(t_args args, char **tokens);
 
 t_args	*parse_args(char **tokens)
 {
@@ -35,6 +36,7 @@ t_args	*parse_args(char **tokens)
 		free(args->cmds);
 		return (NULL);
 	}
+	args = put_in_args(args, tokens);
 	free(tokens);
 	return (args);
 }
@@ -81,4 +83,9 @@ static int	count_files(char **tokens)
 		i++;
 	}
 	return (res);
+}
+
+static	t_args	*put_in_args(t_args args, char **tokens)
+{
+	return (args);
 }
