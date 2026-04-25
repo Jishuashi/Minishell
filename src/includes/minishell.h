@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:33:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/24 15:24:03 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 18:04:52 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@
 # include "token.h"
 # include "extend.h"
 # include "args.h"
+# include "parse_files.h"
 #endif

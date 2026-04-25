@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/25 04:54:07 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 17:19:05 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	shell_loop(t_env_table *env)
 			break ;
 		if (line[0] != '\0')
 			add_history(line);
-		parse_args(token(line, env));
+		parse_args(get_token(line, env));
 		free(line);
 	}
 	return (0);
