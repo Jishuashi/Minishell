@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:24:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 15:32:32 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 17:43:53 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ typedef struct s_cmd
 	char	*args[];
 }	t_cmd;
 
-typedef struct s_files
+typedef struct s_file
 {
 	char	*path;
 	char	*type;
 	char	*delimiter;
-}	t_files;
+}	t_file;
 
 typedef struct s_args
 {
 	t_cmd	*cmds;
-	t_files	*files;
+	t_file	**files;
 }	t_args;
 
 t_args	*parse_args(char	**tokens);

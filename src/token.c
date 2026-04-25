@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 12:31:25 by louka             #+#    #+#             */
-/*   Updated: 2026/04/24 16:37:21 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 17:18:40 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	count_tokens(const char *line)
 	return (count);
 }
 
-char	**token(char *line, t_env_table *env)
+char	**get_token(char *line, t_env_table *env)
 {
 	char	**tokens;
 	int		nb_de_token;
