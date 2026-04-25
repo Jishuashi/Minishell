@@ -6,19 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 20:50:56 by hchartie         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_cmd.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 19:25:56 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 21:43:51 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +15,7 @@
 static char	*check_path_cmd(char *path);
 static int	count_args(char **tokens, int i);
 t_cmd		*fill_cmd(char **tokens, int *i);
+void		push_arg(t_cmd *cmd, char **tokens, int *i, int *j);
 
 t_cmd	**parse_cmd(char **token, t_cmd **cmds)
 {
@@ -73,22 +62,28 @@ t_cmd	*fill_cmd(char **tokens, int *i)
 				(*i)++;
 		}
 		else
-		{
-			cmd->args[j] = ft_strdup(tokens[*i]);
-			if (!cmd->args[j])
-				return (NULL);
-			if (j == 0)
-			{
-				cmd->path = check_path_cmd(tokens[*i]);
-				if (!cmd->path)
-					return (NULL);
-			}
-			j++;
-			(*i)++;
-		}
+			push_arg(cmd, tokens, i, &j);
 	}
 	cmd->args[j] = NULL;
 	return (cmd);
+}
+
+void	push_arg(t_cmd *cmd, char **tokens, int *i, int *j)
+{
+	if (*j != 0)
+		cmd->args[*j] = ft_strdup(tokens[*i]);
+	else
+		cmd->args[*j] = check_path_cmd(tokens[*i]);
+	if (!cmd->args[*j])
+		return ;
+	if (*j == 0)
+	{
+		cmd->path = check_path_cmd(tokens[*i]);
+		if (!cmd->path)
+			return ;
+	}
+	(*j)++;
+	(*i)++;
 }
 
 static char	*check_path_cmd(char *path)
@@ -110,18 +105,16 @@ static int	count_args(char **tokens, int i)
 	{
 		if (tokens && (tokens[i][0] == '<' || tokens[i][0] == '>'))
 		{
-			if (tokens[i + 1])  
+			if (tokens[i + 1])
 				i += 2;
 			else
 				i++;
 		}
 		else
 		{
-			printf("arg : %s\n", tokens[i]);
 			argc++;
 			i++;
 		}
 	}
-	printf("argc : %d\n", argc);
 	return (argc);
 }
