@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/25 17:19:05 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 21:52:18 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ const char	*get_prompt(void)
 int	shell_loop(t_env_table *env)
 {
 	char	*line;
+	t_args	*args;
 
 	setup_signals();
+	args = NULL;
 	while (1)
 	{
 		line = readline(get_prompt());
@@ -60,8 +62,9 @@ int	shell_loop(t_env_table *env)
 			break ;
 		if (line[0] != '\0')
 			add_history(line);
-		parse_args(get_token(line, env));
+		args = parse_args(get_token(line, env));
 		free(line);
+		free_args(args);
 	}
 	return (0);
 }

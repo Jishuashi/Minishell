@@ -1,41 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/16 14:09:17 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 21:14:30 by hchartie         ###   ########.fr       */
+/*   Created: 2026/04/25 21:24:50 by hchartie          #+#    #+#             */
+/*   Updated: 2026/04/25 21:48:38 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef FREE_H
+# define FREE_H
 
-size_t	count_double_char(char **tab)
-{
-	size_t	res;
+typedef struct s_cmd	t_cmd;
+typedef struct s_file	t_file;
+typedef struct s_args	t_args;
 
-	res = 0;
-	while (*tab)
-	{
-		res++;
-		tab++;
-	}
-	return (res);
-}
+int	free_cmds(t_cmd **cmds);
+int	free_files(t_file **files);
+int	free_args(t_args *args);
+int	free_token(char **tokens);
+int	free_env(t_env_table *env);
 
-void	ft_free_all(char **pfree)
-{
-	char	**start;
-
-	if (!pfree)
-		return ;
-	start = pfree;
-	while (*pfree)
-	{
-		free(*pfree);
-		pfree++;
-	}
-	free(start);
-}
+#endif

@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:33:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 18:04:52 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 21:25:05 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,6 @@
 # include "extend.h"
 # include "args.h"
 # include "parse_files.h"
+# include "parse_cmd.h"
+# include "free.h"
 #endif

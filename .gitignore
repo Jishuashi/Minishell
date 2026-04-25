@@ -7,3 +7,6 @@ minishell
 src/Makefile
 *.pdf
 mac
+*.sh
+valgrind_tmp.log
+readline.supp
