@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:24:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 03:22:59 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 15:32:32 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_files
 {
 	char	*path;
 	char	*type;
+	char	*delimiter;
 }	t_files;
 
 typedef struct s_args
