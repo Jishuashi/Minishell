@@ -1,38 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args.h                                             :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/24 15:24:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 15:32:32 by hchartie         ###   ########.fr       */
+/*   Created: 2026/04/25 15:47:37 by hchartie          #+#    #+#             */
+/*   Updated: 2026/04/25 15:47:38 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ARGS_H
-# define ARGS_H
-
-typedef struct s_cmd
-{
-	char	*name;
-	char	*binary;
-	char	*args[];
-}	t_cmd;
-
-typedef struct s_files
-{
-	char	*path;
-	char	*type;
-	char	*delimiter;
-}	t_files;
-
-typedef struct s_args
-{
-	t_cmd	*cmds;
-	t_files	*files;
-}	t_args;
-
-t_args	*parse_args(char	**tokens);
-
-#endif
