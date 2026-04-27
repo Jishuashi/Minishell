@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/27 17:57:39 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:04:29 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	need_extend(char **var, t_env_table *env, int *i, char *token)
 
 	if (token[i[0] + 1] == '?')
 	{
-		if_token(i[2], &status);
+		if_token(i[2], &status, i, var);
 		return ;
 	}
 	var[0] = extract_var_name(token, i[0] + 1, &var_end);

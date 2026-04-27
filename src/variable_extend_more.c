@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 17:40:38 by ldeplace          #+#    #+#             */
-/*   Updated: 2026/04/27 17:57:58 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:04:36 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	calloc_all(char ***var, int **i)
 	return (1);
 }
 
-void	if_token(int last_status, char **status)
+void	if_token(int last_status, char **status, int *i, char **var)
 {
 	*status = ft_itoa(last_status);
 	if (*status)
