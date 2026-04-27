@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/27 18:09:38 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/27 19:05:43 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,7 @@ static char	*replace_var(char *token, t_env_table *env, int last_status)
 	in_double_quote = 0;
 	while (token[i[0]])
 	{
-		if (token[i[0]] == '\'' && !in_double_quote)
-		{
-			in_single_quote = !in_single_quote;
-			i[0]++;
-			continue ;
-		}
-		if (token[i[0]] == '"' && !in_single_quote)
-		{
-			in_double_quote = !in_double_quote;
-			i[0]++;
-			continue ;
-		}
-		if (token[i[0]] == '$' && !in_single_quote)
-			need_extend(var, env, i, token);
-		else
-			append_char(var[3], &i[1], token[i[0]++]);
+		
 	}
 	var[3][i[1]] = '\0';
 	free(i);
