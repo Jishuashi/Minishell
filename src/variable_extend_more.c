@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_extend_more.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 17:40:38 by ldeplace          #+#    #+#             */
-/*   Updated: 2026/04/27 19:12:48 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/27 19:27:14 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,20 @@ void	if_token(int last_status, int *i, char **var)
 
 ft_salopard(t_extend *all)
 {
-	if (token[i[0]] == '\'' && !in_double_quote)
+	if (all->token[all->i[0]] == '\'' && !all->in_double_quote)
 		{
 			all->in_single_quote = !all->in_single_quote;
 			all->i[0]++;
-			continue ;
 		}
-		if (all->token[i[0]] == '"' && !all->in_single_quote)
+		if (all->token[all->i[0]] == '"' && !all->in_single_quote)
 		{
 			all->in_double_quote = !all->in_double_quote;
 			all->i[0]++;
-			continue ;
 		}
-		if (all->token[i[0]] == '$' && !all->in_single_quote)
+		if (all->token[all->i[0]] == '$' && !all->in_single_quote)
 			need_extend(all->var, all->env, all->i, all->token);
 		else
 			append_char(all->var[3], &all->i[1], all->token[all->i[0]++]);
 }
+
+void ft_put_in_struct(t_extend *all, char *token, char **var);
