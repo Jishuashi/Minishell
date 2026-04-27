@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calloc_extend.c                                    :+:      :+:    :+:   */
+/*   variable_extend_more.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/24 12:00:44 by louka             #+#    #+#             */
-/*   Updated: 2026/04/25 21:15:13 by hchartie         ###   ########.fr       */
+/*   Created: 2026/04/27 17:40:38 by ldeplace          #+#    #+#             */
+/*   Updated: 2026/04/27 17:57:58 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	calloc_all(char ***var, int **i)
 {
-	*i = ft_calloc(2, sizeof(int));
+	*i = ft_calloc(3, sizeof(int));
 	*var = ft_calloc(4, sizeof(char *));
 	if (!*i || !*var)
 	{
@@ -30,4 +30,15 @@ int	calloc_all(char ***var, int **i)
 		return (0);
 	}
 	return (1);
+}
+
+void	if_token(int last_status, char **status)
+{
+	*status = ft_itoa(last_status);
+	if (*status)
+	{
+		i[1] += ft_strlcpy(var[3] + i[1], *status, 2048 - i[1]);
+		free(*status);
+	}
+	i[0] += 2;
 }

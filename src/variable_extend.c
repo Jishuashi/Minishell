@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   variable_extend.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/27 16:10:14 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/27 17:57:39 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-static char	*extract_var_name(char *token, int start, int *end)
+char	*extract_var_name(char *token, int start, int *end)
 {
 	int		len;
 	char	*var_name;
@@ -33,24 +33,16 @@ static char	*extract_var_name(char *token, int start, int *end)
 	return (var_name);
 }
 
-static void	need_extend(char **var, t_env_table *env, int *i, char *token,
-		int last_status)
+void	need_extend(char **var, t_env_table *env, int *i, char *token)
 {
-	int	var_end;
+	int		var_end;
 	char	*status;
 
 	if (token[i[0] + 1] == '?')
 	{
-		status = ft_itoa(last_status);
-		if (status)
-		{
-			i[1] += ft_strlcpy(var[3] + i[1], status, 2048 - i[1]);
-			free(status);
-		}
-		i[0] += 2;
+		if_token(i[2], &status);
 		return ;
 	}
-
 	var[0] = extract_var_name(token, i[0] + 1, &var_end);
 	if (!var[0])
 		return ;
@@ -70,7 +62,7 @@ static void	need_extend(char **var, t_env_table *env, int *i, char *token,
 	}
 }
 
-static void	append_char(char *dst, int *dst_i, char c)
+void	append_char(char *dst, int *dst_i, char c)
 {
 	dst[*dst_i] = c;
 	(*dst_i)++;
@@ -87,6 +79,7 @@ static char	*replace_var(char *token, t_env_table *env, int last_status)
 		return (token);
 	i[0] = 0;
 	i[1] = 0;
+	i[2] = last_status;
 	in_single_quote = 0;
 	in_double_quote = 0;
 	while (token[i[0]])
@@ -104,7 +97,7 @@ static char	*replace_var(char *token, t_env_table *env, int last_status)
 			continue ;
 		}
 		if (token[i[0]] == '$' && !in_single_quote)
-			need_extend(var, env, i, token, last_status);
+			need_extend(var, env, i, token);
 		else
 			append_char(var[3], &i[1], token[i[0]++]);
 	}
