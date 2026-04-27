@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/25 21:52:18 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:10:14 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ int	shell_loop(t_env_table *env)
 {
 	char	*line;
 	t_args	*args;
+	int		last_status;
 
 	setup_signals();
 	args = NULL;
+	last_status = 0;
 	while (1)
 	{
 		line = readline(get_prompt());
@@ -62,7 +64,11 @@ int	shell_loop(t_env_table *env)
 			break ;
 		if (line[0] != '\0')
 			add_history(line);
-		args = parse_args(get_token(line, env));
+		args = parse_args(get_token(line, env, last_status));
+		if (!args)
+			last_status = 1;
+		else
+			last_status = 0;
 		free(line);
 		free_args(args);
 	}
