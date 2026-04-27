@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 21:45:48 by louka             #+#    #+#             */
-/*   Updated: 2026/04/24 17:22:11 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/27 16:10:14 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static void	copy_token(char *dst, char *line, int *i)
 	dst[k] = '\0';
 }
 
-char	**split_token(char **token, char *line, t_env_table *env)
+char	**split_token(char **token, char *line, t_env_table *env,
+		int last_status)
 {
 	int	i;
 	int	j;
@@ -80,7 +81,7 @@ char	**split_token(char **token, char *line, t_env_table *env)
 		if (!token[j])
 			return (NULL);
 		copy_token(token[j], line, &i);
-		token[j] = extend(token[j], env);
+		token[j] = extend(token[j], env, last_status);
 		j++;
 	}
 	token[j] = NULL;

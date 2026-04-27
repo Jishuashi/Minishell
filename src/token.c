@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 12:31:25 by louka             #+#    #+#             */
-/*   Updated: 2026/04/25 17:18:40 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:10:14 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	count_tokens(const char *line)
 	return (count);
 }
 
-char	**get_token(char *line, t_env_table *env)
+char	**get_token(char *line, t_env_table *env, int last_status)
 {
 	char	**tokens;
 	int		nb_de_token;
@@ -61,7 +61,7 @@ char	**get_token(char *line, t_env_table *env)
 	tokens = ft_calloc(nb_de_token + 1, sizeof(char *));
 	if (!tokens)
 		return (NULL);
-	split_token(tokens, line, env);
+	split_token(tokens, line, env, last_status);
 	return (tokens);
 }
 

@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/24 17:22:11 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/27 16:10:14 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,23 @@ static char	*extract_var_name(char *token, int start, int *end)
 	return (var_name);
 }
 
-static void	need_extend(char **var, t_env_table *env, int *i, char *token)
+static void	need_extend(char **var, t_env_table *env, int *i, char *token,
+		int last_status)
 {
 	int	var_end;
+	char	*status;
+
+	if (token[i[0] + 1] == '?')
+	{
+		status = ft_itoa(last_status);
+		if (status)
+		{
+			i[1] += ft_strlcpy(var[3] + i[1], status, 2048 - i[1]);
+			free(status);
+		}
+		i[0] += 2;
+		return ;
+	}
 
 	var[0] = extract_var_name(token, i[0] + 1, &var_end);
 	if (!var[0])
@@ -62,7 +76,7 @@ static void	append_char(char *dst, int *dst_i, char c)
 	(*dst_i)++;
 }
 
-static char	*replace_var(char *token, t_env_table *env)
+static char	*replace_var(char *token, t_env_table *env, int last_status)
 {
 	char	**var;
 	int		*i;
@@ -90,7 +104,7 @@ static char	*replace_var(char *token, t_env_table *env)
 			continue ;
 		}
 		if (token[i[0]] == '$' && !in_single_quote)
-			need_extend(var, env, i, token);
+			need_extend(var, env, i, token, last_status);
 		else
 			append_char(var[3], &i[1], token[i[0]++]);
 	}
@@ -102,9 +116,9 @@ static char	*replace_var(char *token, t_env_table *env)
 	return (token);
 }
 
-char	*extend(char *token, t_env_table *env)
+char	*extend(char *token, t_env_table *env, int last_status)
 {
 	if (!token || !env)
 		return (token);
-	return (replace_var(token, env));
+	return (replace_var(token, env, last_status));
 }
