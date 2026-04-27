@@ -6,17 +6,21 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:24:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 20:15:17 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:36:15 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ARGS_H
 # define ARGS_H
 
+typedef struct s_openf	t_openf;
+
 typedef struct s_cmd
 {
 	char	*path;
-	char	*args[];
+	char	**args;
+	t_openf	*in;
+	t_openf	**out;
 }	t_cmd;
 
 typedef struct s_file

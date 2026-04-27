@@ -6,8 +6,19 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 22:34:42 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 22:36:01 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/25 22:59:35 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+void	open_files(t_args *args)
+{
+	int	i;
+
+	i = 0;
+	while (args->files[i])
+	{
+		i++;
+	}
+}
