@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_extend.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/27 19:28:25 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/04/27 19:32:25 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,31 +64,29 @@ void	append_char(char *dst, int *dst_i, char c)
 
 static char	*replace_var(char *token, t_env_table *env, int last_status)
 {
-	char		**var;
-	int			*i;
-	int			in_single_quote;
-	int			in_double_quote;
 	t_extend	*all;
 
-	all = malloc(sizeof t_extend);
-	ft_put_in_struct(all, token, var, i);
-	if (!calloc_all(&all->var, &i))
+	all = malloc(sizeof *all);
+	if (!all)
 		return (token);
-	i[0] = 0;
-	i[1] = 0;
-	i[2] = last_status;
-	in_single_quote = 0;
-	in_double_quote = 0;
-	while (token[i[0]])
-	{
-		
-	}
-	var[3][i[1]] = '\0';
-	free(i);
+	all->env = env;
+	all->token = token;
+	if (!calloc_all(&all->var, &all->i))
+		return (token);
+	all->in_single_quote = 0;
+	all->in_double_quote = 0;
+	all->i[0] = 0;
+	all->i[1] = 0;
+	all->i[2] = last_status;
+	while (all->token[all->i[0]])
+		ft_salopard(all);
+	all->var[3][all->i[1]] = '\0';
+	free(all->i);
 	free(token);
-	token = all->var[i];
+	token = all->var[3];
 	free(all->var);
-	return (all->token);
+	free(all);
+	return (token);
 }
 
 char	*extend(char *token, t_env_table *env, int last_status)
