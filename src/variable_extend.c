@@ -6,13 +6,13 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/27 16:10:14 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/27 19:32:25 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-static char	*extract_var_name(char *token, int start, int *end)
+char	*extract_var_name(char *token, int start, int *end)
 {
 	int		len;
 	char	*var_name;
@@ -33,44 +33,30 @@ static char	*extract_var_name(char *token, int start, int *end)
 	return (var_name);
 }
 
-static void	need_extend(char **var, t_env_table *env, int *i, char *token,
-		int last_status)
+void	need_extend(char **var, t_env_table *env, int *i, char *token)
 {
-	int	var_end;
-	char	*status;
+	int		var_end;
 
 	if (token[i[0] + 1] == '?')
-	{
-		status = ft_itoa(last_status);
-		if (status)
-		{
-			i[1] += ft_strlcpy(var[3] + i[1], status, 2048 - i[1]);
-			free(status);
-		}
-		i[0] += 2;
-		return ;
-	}
-
+		return (if_token(i[2], i, var));
 	var[0] = extract_var_name(token, i[0] + 1, &var_end);
 	if (!var[0])
 		return ;
-	if (var[0][0])
-	{
-		var[1] = get_value(var[0], env);
-		if (var[1])
-			i[1] += ft_strlcpy(var[3] + i[1], var[1], 2048 - i[1]);
-		free(var[0]);
-		i[0] = var_end;
-	}
-	else
+	if (!var[0][0])
 	{
 		free(var[0]);
 		var[3][i[1]++] = token[i[0]];
 		i[0]++;
+		return ;
 	}
+	var[1] = get_value(var[0], env);
+	if (var[1])
+		i[1] += ft_strlcpy(var[3] + i[1], var[1], 2048 - i[1]);
+	free(var[0]);
+	i[0] = var_end;
 }
 
-static void	append_char(char *dst, int *dst_i, char c)
+void	append_char(char *dst, int *dst_i, char c)
 {
 	dst[*dst_i] = c;
 	(*dst_i)++;
@@ -78,41 +64,28 @@ static void	append_char(char *dst, int *dst_i, char c)
 
 static char	*replace_var(char *token, t_env_table *env, int last_status)
 {
-	char	**var;
-	int		*i;
-	int		in_single_quote;
-	int		in_double_quote;
+	t_extend	*all;
 
-	if (!calloc_all(&var, &i))
+	all = malloc(sizeof *all);
+	if (!all)
 		return (token);
-	i[0] = 0;
-	i[1] = 0;
-	in_single_quote = 0;
-	in_double_quote = 0;
-	while (token[i[0]])
-	{
-		if (token[i[0]] == '\'' && !in_double_quote)
-		{
-			in_single_quote = !in_single_quote;
-			i[0]++;
-			continue ;
-		}
-		if (token[i[0]] == '"' && !in_single_quote)
-		{
-			in_double_quote = !in_double_quote;
-			i[0]++;
-			continue ;
-		}
-		if (token[i[0]] == '$' && !in_single_quote)
-			need_extend(var, env, i, token, last_status);
-		else
-			append_char(var[3], &i[1], token[i[0]++]);
-	}
-	var[3][i[1]] = '\0';
-	free(i);
+	all->env = env;
+	all->token = token;
+	if (!calloc_all(&all->var, &all->i))
+		return (token);
+	all->in_single_quote = 0;
+	all->in_double_quote = 0;
+	all->i[0] = 0;
+	all->i[1] = 0;
+	all->i[2] = last_status;
+	while (all->token[all->i[0]])
+		ft_salopard(all);
+	all->var[3][all->i[1]] = '\0';
+	free(all->i);
 	free(token);
-	token = var[3];
-	free(var);
+	token = all->var[3];
+	free(all->var);
+	free(all);
 	return (token);
 }
 

@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:23:49 by louka             #+#    #+#             */
-/*   Updated: 2026/04/27 16:10:14 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/27 19:31:58 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,21 @@
 # define EXTEND_H
 
 typedef struct s_env_table	t_env_table;
+typedef struct s_extend
+{
+	t_env_table	*env;
+	int			in_single_quote;
+	int			in_double_quote;
+	char		*token;
+	char		**var;
+	int			*i;
+}	t_extend;
 
-char	*extend(char *token, t_env_table *env, int last_status);
+char		*extend(char *token, t_env_table *env, int last_status);
+char		*extract_var_name(char *token, int start, int *end);
+void		need_extend(char **var, t_env_table *env, int *i, char *token);
+void		append_char(char *dst, int *dst_i, char c);
+void		if_token(int last_status, int *i, char **var);
+void		ft_salopard(t_extend *all);
 
 #endif
