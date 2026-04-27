@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:33:25 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 21:51:45 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:56:22 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ int	main(int ac, char *av[], char *envp[])
 	env = create_env(envp);
 	shell_loop(env);
 	free_env(env);
-    return (0);
+	return (0);
 }

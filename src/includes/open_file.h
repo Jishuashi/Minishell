@@ -6,7 +6,19 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 22:35:55 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 22:35:56 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:56:49 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef OPEN_FILE_H
+# define OPEN_FILE_H
+
+typedef struct s_openf
+{
+	int	status;
+	int	fd;
+}	t_openf;
+
+void	open_files(t_args *args);
+
+#endif

@@ -11,3 +11,4 @@ mac
 valgrind_tmp.log
 readline.supp
 *.log
+test

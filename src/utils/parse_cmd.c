@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 21:43:51 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:52:16 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_cmd	*fill_cmd(char **tokens, int *i)
 	if (!cmd)
 		return (NULL);
 	cmd->path = NULL;
+	cmd->args = (char **)((char *)cmd + sizeof(t_cmd));
 	j = 0;
 	while (tokens[*i] && tokens[*i][0] != '|')
 	{
