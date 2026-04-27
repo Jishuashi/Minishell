@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_extend_more.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 17:40:38 by ldeplace          #+#    #+#             */
-/*   Updated: 2026/04/27 18:04:36 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:09:38 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ int	calloc_all(char ***var, int **i)
 	return (1);
 }
 
-void	if_token(int last_status, char **status, int *i, char **var)
+void	if_token(int last_status, int *i, char **var)
 {
-	*status = ft_itoa(last_status);
-	if (*status)
+	char	*status;
+
+	status = ft_itoa(last_status);
+	if (status)
 	{
-		i[1] += ft_strlcpy(var[3] + i[1], *status, 2048 - i[1]);
-		free(*status);
+		i[1] += ft_strlcpy(var[3] + i[1], status, 2048 - i[1]);
+		free(status);
 	}
 	i[0] += 2;
 }

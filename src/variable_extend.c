@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_extend.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/27 18:04:29 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:09:38 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,24 @@ char	*extract_var_name(char *token, int start, int *end)
 void	need_extend(char **var, t_env_table *env, int *i, char *token)
 {
 	int		var_end;
-	char	*status;
 
 	if (token[i[0] + 1] == '?')
-	{
-		if_token(i[2], &status, i, var);
-		return ;
-	}
+		return (if_token(i[2], i, var));
 	var[0] = extract_var_name(token, i[0] + 1, &var_end);
 	if (!var[0])
 		return ;
-	if (var[0][0])
-	{
-		var[1] = get_value(var[0], env);
-		if (var[1])
-			i[1] += ft_strlcpy(var[3] + i[1], var[1], 2048 - i[1]);
-		free(var[0]);
-		i[0] = var_end;
-	}
-	else
+	if (!var[0][0])
 	{
 		free(var[0]);
 		var[3][i[1]++] = token[i[0]];
 		i[0]++;
+		return ;
 	}
+	var[1] = get_value(var[0], env);
+	if (var[1])
+		i[1] += ft_strlcpy(var[3] + i[1], var[1], 2048 - i[1]);
+	free(var[0]);
+	i[0] = var_end;
 }
 
 void	append_char(char *dst, int *dst_i, char c)
