@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/28 13:41:51 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/28 13:53:14 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,18 @@ void	push_arg(t_cmd *cmd, char **tokens, int *i, int *j, t_env_table *env)
 	else
 		cmd->args[*j] = check_path_cmd(tokens[*i], env);
 	if (!cmd->args[*j])
+	{
+		(*i)++;
 		return ;
+	}
 	if (*j == 0)
 	{
 		cmd->path = check_path_cmd(tokens[*i], env);
 		if (!cmd->path)
+		{
+			(*i)++;
 			return ;
+		}
 	}
 	(*j)++;
 	(*i)++;
