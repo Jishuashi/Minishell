@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_acces.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 12:14:13 by louka             #+#    #+#             */
-/*   Updated: 2026/04/28 13:27:01 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:10:20 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,13 @@ int	check_acces(int i, char **paths, char **full_path, char *path)
 	free(*full_path);
 	*full_path = NULL;
 	return (1);
+}
+
+void ft_cmd_not_found(char **paths, char *path)
+{
+		ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(path, 2);
+	ft_putstr_fd(" command not found:", 2);
+	ft_putchar_fd('\n', 2);
+	ft_free_all(paths);
 }
