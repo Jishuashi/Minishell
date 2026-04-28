@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/28 14:06:10 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/28 14:08:33 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,9 @@ char	*check_path_cmd(char *path, t_env_table *env)
 	path_env = get_value("PATH", env);
 	if (!path_env)
 	{
-		ft_putstr_fd("minishell: command not found: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(path, 2);
+		ft_putstr_fd(" command not found:", 2);
 		ft_putchar_fd('\n', 2);
 		return (NULL);
 	}
@@ -117,8 +118,9 @@ char	*check_path_cmd(char *path, t_env_table *env)
 			return (ft_free_all(paths), full_path);
 		i++;
 	}
-	ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(path, 2);
+	ft_putstr_fd(" command not found:", 2);
 	ft_putchar_fd('\n', 2);
 	ft_free_all(paths);
 	return (NULL);
