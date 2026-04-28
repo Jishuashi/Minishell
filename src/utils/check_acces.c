@@ -24,7 +24,8 @@ int	check_acces(int i, char **paths, char **full_path, char *path)
 	if (!*full_path)
 		return (-1);
 	if (access(*full_path, X_OK) == 0)
-		return (-1);
+		return (0);
 	free(*full_path);
-	return (i++);
+	*full_path = NULL;
+	return (1);
 }
