@@ -14,10 +14,13 @@
 
 int	check_acces(int i, char **paths, char **full_path, char *path)
 {
-	*full_path = ft_strjoin(paths[i], "/");
-	if (!*full_path)
+	char *tmp;
+
+	tmp = ft_strjoin(paths[i], "/");
+	if (!tmp)
 		return (-1);
-	*full_path = ft_strjoin_free(*full_path, path);
+	*full_path = ft_strjoin(tmp, path);
+	free(tmp);
 	if (!*full_path)
 		return (-1);
 	if (access(*full_path, X_OK) == 0)
