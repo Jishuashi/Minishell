@@ -112,6 +112,8 @@ char	*check_path_cmd(char *path, t_env_table *env)
 			return (ft_free_all(paths), full_path);
 		i++;
 	}
+	ft_putstr_fd("pipex: command not found: ", 2);
+	ft_putendl_fd(path, 2);
 	ft_free_all(paths);
 	return (NULL);
 }

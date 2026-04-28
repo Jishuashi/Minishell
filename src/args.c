@@ -23,7 +23,7 @@ t_args	*parse_args(char **tokens, t_env_table *env)
 	args = (t_args *)malloc(sizeof(t_args));
 	if (!args)
 		return (NULL);
-	args->cmds = (t_cmd **)malloc(sizeof(t_cmd *) * count_cmd(tokens));
+	args->cmds = (t_cmd **)malloc(sizeof(t_cmd *) * (count_cmd(tokens) + 1));
 	if (!args->cmds)
 	{
 		free(args);
