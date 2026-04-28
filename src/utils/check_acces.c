@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args.h                                             :+:      :+:    :+:   */
+/*   check_acces.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/24 15:24:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/28 12:10:42 by louka            ###   ########.fr       */
+/*   Created: 2026/04/28 12:14:13 by louka             #+#    #+#             */
+/*   Updated: 2026/04/28 12:54:13 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ARGS_H
-# define ARGS_H
+#include "minishell.h"
 
-typedef struct s_openf	t_openf;
-typedef struct s_env_table	t_env_table;
-
-typedef struct s_cmd
+int	check_acces(int i, char **paths, char *full_path, char *path)
 {
-	char	*path;
-	char	**args;
-	t_openf	*in;
-	t_openf	**out;
-}	t_cmd;
-
-typedef struct s_file
-{
-	char	*path;
-	char	*type;
-	char	*delimiter;
-}	t_file;
-
-typedef struct s_args
-{
-	t_cmd	**cmds;
-	t_file	**files;
-}	t_args;
-
-t_args	*parse_args(char **tokens, t_env_table *env);
-
-#endif
+	full_path = ft_strjoin(paths[i], "/");
+	if (!full_path)
+		return (ft_free_all(paths), NULL);
+	full_path = ft_strjoin_free(full_path, path);
+	if (!full_path)
+		return (ft_free_all(paths), NULL);
+	if (access(full_path, X_OK) == 0)
+		return (ft_free_all(paths), full_path);
+	free(full_path);
+	return (i++);
+}

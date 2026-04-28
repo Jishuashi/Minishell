@@ -3,21 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/27 16:52:16 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/28 12:55:15 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*check_path_cmd(char *path);
-static int	count_args(char **tokens, int i);
-t_cmd		*fill_cmd(char **tokens, int *i);
-void		push_arg(t_cmd *cmd, char **tokens, int *i, int *j);
-
-t_cmd	**parse_cmd(char **token, t_cmd **cmds)
+t_cmd	**parse_cmd(char **token, t_cmd **cmds, t_env_table *env)
 {
 	int	i;
 	int	j;
@@ -31,7 +26,7 @@ t_cmd	**parse_cmd(char **token, t_cmd **cmds)
 			i++;
 			continue ;
 		}
-		cmds[j] = fill_cmd(token, &i);
+		cmds[j] = fill_cmd(token, &i, env);
 		if (!cmds[j])
 			return (NULL);
 		j++;
@@ -40,7 +35,7 @@ t_cmd	**parse_cmd(char **token, t_cmd **cmds)
 	return (cmds);
 }
 
-t_cmd	*fill_cmd(char **tokens, int *i)
+t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 {
 	t_cmd	*cmd;
 	int		j;
@@ -63,23 +58,23 @@ t_cmd	*fill_cmd(char **tokens, int *i)
 				(*i)++;
 		}
 		else
-			push_arg(cmd, tokens, i, &j);
+			push_arg(cmd, tokens, i, &j, env);
 	}
 	cmd->args[j] = NULL;
 	return (cmd);
 }
 
-void	push_arg(t_cmd *cmd, char **tokens, int *i, int *j)
+void	push_arg(t_cmd *cmd, char **tokens, int *i, int *j, t_env_table *env)
 {
 	if (*j != 0)
 		cmd->args[*j] = ft_strdup(tokens[*i]);
 	else
-		cmd->args[*j] = check_path_cmd(tokens[*i]);
+		cmd->args[*j] = check_path_cmd(tokens[*i], env);
 	if (!cmd->args[*j])
 		return ;
 	if (*j == 0)
 	{
-		cmd->path = check_path_cmd(tokens[*i]);
+		cmd->path = check_path_cmd(tokens[*i], env);
 		if (!cmd->path)
 			return ;
 	}
@@ -87,17 +82,31 @@ void	push_arg(t_cmd *cmd, char **tokens, int *i, int *j)
 	(*i)++;
 }
 
-static char	*check_path_cmd(char *path)
+char	*check_path_cmd(char *path, t_env_table *env)
 {
+	char	*path_env;
+	char	**paths;
+	char	*full_path;
+	int		i;
+
 	if (!path)
 		return (NULL);
 	if (ft_strchr(path, '/'))
 		return (ft_strdup(path));
-	else
-		return (ft_strjoin("/bin/", path));
+	path_env = get_value("PATH", env);
+	if (!path_env)
+		return (NULL);
+	paths = ft_split(path_env, ':');
+	if (!paths)
+		return (NULL);
+	i = 0;
+	while (paths[i])
+		check_acces(i, paths, full_path, path);
+	ft_free_all(paths);
+	return (NULL);
 }
 
-static int	count_args(char **tokens, int i)
+int	count_args(char **tokens, int i)
 {
 	int	argc;
 
