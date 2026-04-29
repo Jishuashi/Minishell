@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/29 15:49:28 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/04/29 15:59:45 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 {
 	t_cmd	*cmd;
 	int		argc;
+	int		j;
 
 	argc = count_args(tokens, *i);
 	cmd = malloc(sizeof(t_cmd) + sizeof(char *) * (argc + 1));
@@ -46,8 +47,13 @@ t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 		return (NULL);
 	cmd->path = NULL;
 	cmd->args = (char **)((char *)cmd + sizeof(t_cmd));
-	(void)env;
-	fill_args(cmd, tokens, i);
+	j = 0;
+	while (j <= argc)
+	{
+		cmd->args[j] = NULL;
+		j++;
+	}
+	fill_args(cmd, tokens, i, env);
 	return (cmd);
 }
 
