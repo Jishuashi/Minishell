@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/28 12:10:42 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/29 14:09:00 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	on_sigint(int signum)
 	g_signal = 0;
 	write(1, "\n", 1);
 	rl_on_new_line();
-	rl_replace_line("", 0);
 	rl_redisplay();
 }
 

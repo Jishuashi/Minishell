@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/28 14:14:45 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/04/29 13:09:17 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,20 @@ t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 
 void	push_arg(t_cmd *cmd, char **tokens, int *i, int *j, t_env_table *env)
 {
-	if (*j != 0)
-		cmd->args[*j] = ft_strdup(tokens[*i]);
-	else
-		cmd->args[*j] = check_path_cmd(tokens[*i], env);
-	if (!cmd->args[*j])
-	{
-		(*i)++;
-		return ;
-	}
 	if (*j == 0)
 	{
+		cmd->args[*j] = ft_strdup(tokens[*i]);
+		if (!cmd->args[*j])
+		{
+			(*i)++;
+			return ;
+		}
 		cmd->path = check_path_cmd(tokens[*i], env);
-		if (!cmd->path)
+	}
+	else
+	{
+		cmd->args[*j] = ft_strdup(tokens[*i]);
+		if (!cmd->args[*j])
 		{
 			(*i)++;
 			return ;
