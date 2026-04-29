@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/29 14:20:24 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/29 15:49:28 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static void	fill_args(t_cmd *cmd, char **tokens, int *i);
 
 t_cmd	**parse_cmd(char **token, t_cmd **cmds, t_env_table *env)
 {
@@ -48,6 +46,7 @@ t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 		return (NULL);
 	cmd->path = NULL;
 	cmd->args = (char **)((char *)cmd + sizeof(t_cmd));
+	(void)env;
 	fill_args(cmd, tokens, i);
 	return (cmd);
 }
