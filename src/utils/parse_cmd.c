@@ -6,11 +6,13 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/29 13:09:17 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/29 14:20:24 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static void	fill_args(t_cmd *cmd, char **tokens, int *i);
 
 t_cmd	**parse_cmd(char **token, t_cmd **cmds, t_env_table *env)
 {
@@ -38,7 +40,6 @@ t_cmd	**parse_cmd(char **token, t_cmd **cmds, t_env_table *env)
 t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 {
 	t_cmd	*cmd;
-	int		j;
 	int		argc;
 
 	argc = count_args(tokens, *i);
@@ -47,29 +48,21 @@ t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 		return (NULL);
 	cmd->path = NULL;
 	cmd->args = (char **)((char *)cmd + sizeof(t_cmd));
-	j = 0;
-	while (tokens[*i] && tokens[*i][0] != '|')
-	{
-		if (tokens[*i][0] == '<' || tokens[*i][0] == '>')
-		{
-			if (tokens[*i + 1])
-				*i += 2;
-			else
-				(*i)++;
-		}
-		else
-			push_arg(cmd, tokens, i, &j, env);
-	}
-	cmd->args[j] = NULL;
+	fill_args(cmd, tokens, i);
 	return (cmd);
 }
 
-void	push_arg(t_cmd *cmd, char **tokens, int *i, int *j, t_env_table *env)
+void	push_arg(t_cmd *cmd, char **tokens, int *i, t_env_table *env)
 {
-	if (*j == 0)
+	int	j;
+
+	j = 0;
+	while (cmd->args[j] != NULL)
+		j++;
+	if (j == 0)
 	{
-		cmd->args[*j] = ft_strdup(tokens[*i]);
-		if (!cmd->args[*j])
+		cmd->args[j] = ft_strdup(tokens[*i]);
+		if (!cmd->args[j])
 		{
 			(*i)++;
 			return ;
@@ -78,14 +71,13 @@ void	push_arg(t_cmd *cmd, char **tokens, int *i, int *j, t_env_table *env)
 	}
 	else
 	{
-		cmd->args[*j] = ft_strdup(tokens[*i]);
-		if (!cmd->args[*j])
+		cmd->args[j] = ft_strdup(tokens[*i]);
+		if (!cmd->args[j])
 		{
 			(*i)++;
 			return ;
 		}
 	}
-	(*j)++;
 	(*i)++;
 }
 

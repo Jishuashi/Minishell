@@ -6,14 +6,14 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:24:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/28 12:10:42 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/29 14:22:29 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ARGS_H
 # define ARGS_H
 
-typedef struct s_openf	t_openf;
+typedef struct s_openf		t_openf;
 typedef struct s_env_table	t_env_table;
 
 typedef struct s_cmd
