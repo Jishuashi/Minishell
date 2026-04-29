@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/27 16:55:59 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:09:00 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	on_sigint(int signum)
 	g_signal = 0;
 	write(1, "\n", 1);
 	rl_on_new_line();
-	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
@@ -64,7 +63,7 @@ int	shell_loop(t_env_table *env)
 			break ;
 		if (line[0] != '\0')
 			add_history(line);
-		args = parse_args(get_token(line, env, last_status));
+		args = parse_args(get_token(line, env, last_status), env);
 		if (!args)
 			last_status = 1;
 		else

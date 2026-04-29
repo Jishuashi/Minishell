@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/27 19:32:25 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/29 14:26:08 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	*replace_var(char *token, t_env_table *env, int last_status)
 {
 	t_extend	*all;
 
-	all = malloc(sizeof *all);
+	all = malloc(sizeof (t_extend));
 	if (!all)
 		return (token);
 	all->env = env;
@@ -79,7 +79,7 @@ static char	*replace_var(char *token, t_env_table *env, int last_status)
 	all->i[1] = 0;
 	all->i[2] = last_status;
 	while (all->token[all->i[0]])
-		ft_salopard(all);
+		ft_check_quote(all);
 	all->var[3][all->i[1]] = '\0';
 	free(all->i);
 	free(token);

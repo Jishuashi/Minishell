@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 17:40:38 by ldeplace          #+#    #+#             */
-/*   Updated: 2026/04/27 19:32:06 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/29 14:25:23 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	if_token(int last_status, int *i, char **var)
 	i[0] += 2;
 }
 
-void	ft_salopard(t_extend *all)
+void	ft_check_quote(t_extend *all)
 {
 	if (all->token[all->i[0]] == '\'' && !all->in_double_quote)
 	{
