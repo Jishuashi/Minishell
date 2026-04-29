@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd_more.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 12:14:13 by louka             #+#    #+#             */
-/*   Updated: 2026/04/29 14:24:50 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/29 15:59:52 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_cmd_not_found(char **paths, char *path)
 	ft_free_all(paths);
 }
 
-void	fill_args(t_cmd *cmd, char **tokens, int *i)
+void	fill_args(t_cmd *cmd, char **tokens, int *i, t_env_table *env)
 {
 	int	j;
 
@@ -59,7 +59,7 @@ void	fill_args(t_cmd *cmd, char **tokens, int *i)
 				*i += 1;
 		}
 		else
-			push_arg(cmd, tokens, i, NULL);
+			push_arg(cmd, tokens, i, env);
 	}
 	j = 0;
 	while (cmd->args[j] != NULL)

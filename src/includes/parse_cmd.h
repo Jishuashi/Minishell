@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:25 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/29 14:22:10 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/29 15:59:50 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int		check_acces(int i, char **paths, char **full_path, char *path);
 void	push_arg(t_cmd *cmd, char **tokens, int *i, t_env_table *env);
 void	ft_cmd_not_found(char **paths, char *path);
 void	ft_cmd_not_found_two(char *path);
-void	fill_args(t_cmd *cmd, char **tokens, int *i);
+void	fill_args(t_cmd *cmd, char **tokens, int *i, t_env_table *env);
 
 #endif

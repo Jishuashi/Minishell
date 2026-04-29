@@ -24,11 +24,14 @@ int	free_cmds(t_cmd **cmds)
 	while (cmds[i])
 	{
 		free(cmds[i]->path);
-		j = 0;
-		while (cmds[i]->args[j])
+		if (cmds[i]->args)
 		{
-			free(cmds[i]->args[j]);
-			j++;
+			j = 0;
+			while (cmds[i]->args[j])
+			{
+				free(cmds[i]->args[j]);
+				j++;
+			}
 		}
 		free (cmds[i]);
 		i++;
