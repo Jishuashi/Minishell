@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:23:11 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/28 12:10:42 by louka            ###   ########.fr       */
+/*   Updated: 2026/04/29 15:50:52 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int		count_cmd(char **tokens);
 static int		count_file(char **tokens);
-static t_args	*fill_args(t_args *args, char **tokens, t_env_table *env);
+static t_args	*fill_args_args(t_args *args, char **tokens, t_env_table *env);
 
 t_args	*parse_args(char **tokens, t_env_table *env)
 {
@@ -36,7 +36,7 @@ t_args	*parse_args(char **tokens, t_env_table *env)
 		free(args);
 		return (NULL);
 	}
-	args = fill_args(args, tokens, env);
+	args = fill_args_args(args, tokens, env);
 	free_token(tokens);
 	return (args);
 }
@@ -85,7 +85,7 @@ static int	count_file(char **tokens)
 	return (res);
 }
 
-static	t_args	*fill_args(t_args *args, char **tokens, t_env_table *env)
+static	t_args	*fill_args_args(t_args *args, char **tokens, t_env_table *env)
 {
 	int	i;
 
