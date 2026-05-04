@@ -6,13 +6,14 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:33:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 22:36:03 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:52:44 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "../libft/libft.h"
+# include <fcntl.h>
 # include "prompt.h"
 # include "env.h"
 # include "utils.h"
@@ -23,4 +24,5 @@
 # include "parse_cmd.h"
 # include "free.h"
 # include "open_file.h"
+# include <errno.h>
 #endif

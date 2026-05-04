@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 22:35:55 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/02 04:38:12 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:37:46 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 
 typedef struct s_openf
 {
-	int	status;
-	int	fd;
+	int		status;
+	int		fd;
+	char	*type;
 }	t_openf;
 
-void	open_files(t_args *args);
+t_openf	**open_files(t_args *args);
 
 #endif

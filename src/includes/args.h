@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:24:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/29 14:22:29 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/04 16:48:18 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_args
 {
 	t_cmd	**cmds;
 	t_file	**files;
+	int		nb_file;
 }	t_args;
 
 t_args	*parse_args(char **tokens, t_env_table *env);
