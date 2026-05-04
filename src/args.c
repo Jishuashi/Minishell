@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:23:11 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/29 15:50:52 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:00:56 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_args	*parse_args(char **tokens, t_env_table *env)
 		return (NULL);
 	}
 	args->files = (t_file **)malloc(sizeof(t_file *) * (count_file(tokens)+1));
+	args->nb_file = count_file(tokens) + 1;
 	if (!args->files)
 	{
 		free(args->cmds);

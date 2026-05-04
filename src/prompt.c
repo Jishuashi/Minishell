@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/04/29 14:09:00 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/04 17:09:48 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
 volatile sig_atomic_t	g_signal;
+
+static void	temp_print(t_openf **op);
 
 static void	on_sigint(int signum)
 {
@@ -64,6 +66,8 @@ int	shell_loop(t_env_table *env)
 		if (line[0] != '\0')
 			add_history(line);
 		args = parse_args(get_token(line, env, last_status), env);
+		if (args->nb_file >= 1)
+			temp_print(open_files(args));
 		if (!args)
 			last_status = 1;
 		else
@@ -72,4 +76,17 @@ int	shell_loop(t_env_table *env)
 		free_args(args);
 	}
 	return (0);
+}
+
+static void	temp_print(t_openf **op)
+{
+	int	i;
+
+	i = 0;
+	while (op[i])
+	{
+		ft_printf("File %d: status=%d, fd=%d, type=%s\n", i, op[i]->status,
+			op[i]->fd, op[i]->type);
+		i++;
+	}
 }
