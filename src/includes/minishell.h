@@ -3,17 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:33:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/04 16:52:44 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:54:39 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include "../libft/libft.h"
+
 # include <fcntl.h>
+# include <signal.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <unistd.h>
+# include <termios.h>
+# include <stdio.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <errno.h>
+
+# include "../libft/libft.h"
 # include "prompt.h"
 # include "env.h"
 # include "utils.h"
@@ -24,5 +36,6 @@
 # include "parse_cmd.h"
 # include "free.h"
 # include "open_file.h"
-# include <errno.h>
+# include "executeur.h"
+
 #endif

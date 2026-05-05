@@ -13,7 +13,8 @@ OBJ_DIR         = obj
 SRCS            = src/minishell.c				src/utils/utils.c			src/env.c				src/prompt.c 			\
 				  src/token_split.c				src/token.c					src/args.c				src/variable_extend.c 	\
 				  src/variable_extend_more.c	src/utils/parse_files.c		src/utils/parse_cmd.c	src/utils/free.c 		\
-				  src/open_file.c				src/utils/parse_cmd_more.c	src/utils/utils_files.c
+				  src/open_file.c				src/utils/parse_cmd_more.c	src/utils/utils_files.c src/executeur.c         \
+				  src/executeur_setup.c
 
 OBJS            = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
