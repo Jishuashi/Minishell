@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 15:47:37 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 19:46:27 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:29:02 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_file	**parse_files(char **tokens, t_file **files, int len)
 			return (NULL);
 		file->type = get_file_type(tokens, i);
 		if (file->type[0] == 'H')
-			file->delimiter = tokens[++i];
+			file->delimiter = ft_strdup(tokens[++i]);
 		else
 			file->delimiter = NULL;
 		file->path = check_file_path(tokens[++i]);

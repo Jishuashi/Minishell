@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 22:34:42 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/04 17:09:23 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:40:53 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@ static int	ft_open(t_file *file);
 t_openf	**open_files(t_args *args)
 {
 	int		i;
-	t_file	*current;
 	t_openf	**res;
 
 	i = 0;
-	res = (t_openf **)malloc(sizeof(t_openf *) * (args->nb_file + 1));
+	res = (t_openf **)ft_calloc((args->nb_file + 1), sizeof(t_openf *));
 	if (!res)
 		return (NULL);
 	while (args->files[i])
 	{
-		current = args->files[i];
-		res[i] = (t_openf *)malloc(sizeof(t_openf));
-		if (!res[i])
+		if (!ft_strncmp(args->files[i]->type, "HEREDOC", 8))
+			res[i] = heredoc(args->files[i]->delimiter);
+		else
 		{
-			free(res);
-			return (NULL);
+			res[i] = (t_openf *)malloc(sizeof(t_openf));
+			if (!res[i])
+				return (free(res), NULL);
+			res[i]->status = check_files(args->files[i]);
+			res[i]->type = args->files[i]->type;
+			res[i]->fd = ft_open(args->files[i]);
 		}
-		res[i]->status = check_files(current);
-		res[i]->type = current->type;
-		res[i]->fd = ft_open(current);
 		i++;
 	}
 	res[i] = NULL;
