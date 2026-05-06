@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 22:35:55 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/04 16:37:46 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:07:38 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ typedef struct s_openf
 }	t_openf;
 
 t_openf	**open_files(t_args *args);
+t_openf	*heredoc(char *delimiter);
 
 #endif
