@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:33:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/05 12:54:39 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/07 13:16:42 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 
 # include <fcntl.h>
 # include <signal.h>
-# include <stdlib.h>
 # include <string.h>
 # include <sys/wait.h>
-# include <unistd.h>
 # include <termios.h>
 # include <stdio.h>
 # include <readline/history.h>
