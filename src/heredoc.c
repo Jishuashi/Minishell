@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 14:46:53 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/11 13:58:12 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/11 14:06:02 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_openf	*heredoc(char *delimiter)
 		res = ft_strjoin(res, "\n");
 		free(temp);
 		free(line);
-		printf("blblblbl\n");
 	}
 }
 
