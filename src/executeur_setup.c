@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:36:30 by louka             #+#    #+#             */
-/*   Updated: 2026/05/11 14:00:42 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/11 14:06:52 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	process_command_line(char *line, t_env_table *env,
 	*args = parse_args(tokens, env);
 	if (!*args)
 		return (1);
-	args.ofiles = open_files(*args);
+	(*args)->ofiles = open_files(*args);
 	if ((*args)->cmds && (*args)->cmds[0])
 		return (execute_args(*args, env));
 	return (0);
