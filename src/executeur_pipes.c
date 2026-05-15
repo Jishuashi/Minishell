@@ -6,16 +6,15 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 17:40:09 by louka             #+#    #+#             */
-/*   Updated: 2026/05/15 16:53:02 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/15 17:05:58 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-#include "includes/executeur_pipes.h"
 
 static int	alloc_pipe_block(t_exec_res *res, int n_cmds)
 {
-	res->pipes = malloc(sizeof(int[2]) * (n_cmds - 1));
+	res->pipes = malloc(sizeof(int) * 2 * (n_cmds - 1));
 	if (!res->pipes)
 	{
 		free(res->pids);
@@ -53,7 +52,7 @@ t_openf	**open_and_check(t_args *args)
 
 int	fill_pipes(int (*pipes)[2], int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < n)
@@ -68,9 +67,9 @@ int	fill_pipes(int (*pipes)[2], int n)
 	return (0);
 }
 
-int	alloc_exec_resources(t_args *args, t_env_table *env, t_exec_res *res)
+int	alloc_exec_resources(t_args *args, t_exec_res *res)
 {
-	int n_cmds;
+	int	n_cmds;
 
 	if (!args || !args->cmds || !args->cmds[0])
 		return (0);
@@ -92,21 +91,18 @@ int	alloc_exec_resources(t_args *args, t_env_table *env, t_exec_res *res)
 
 int	spawn_children(t_exec_res *res, t_args *args, t_env_table *env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < res->n_cmds)
 	{
 		res->pids[i] = fork();
 		if (res->pids[i] < 0)
-		{
-			perror("minishell: fork");
-			return (-1);
-		}
+			return (perror("minishell: fork"), -1);
 		if (res->pids[i] == 0)
 		{
 			child_exec_body(i, res, args, env);
-			_exit(127);
+			exit(127);
 		}
 		if (res->n_cmds > 1)
 		{

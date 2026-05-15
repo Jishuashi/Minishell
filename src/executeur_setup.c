@@ -6,12 +6,11 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:36:30 by louka             #+#    #+#             */
-/*   Updated: 2026/05/15 16:53:02 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/15 17:11:32 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-#include "includes/executeur_pipes.h"
 
 int	process_command_line(char *line, t_env_table *env,
 		t_args **args, int last_status)
@@ -85,9 +84,9 @@ static int	wait_children_and_status(pid_t *pids, int n_cmds)
 int	execute_args(t_args *args, t_env_table *env)
 {
 	t_exec_res	res;
-	int		ret;
+	int			ret;
 
-	ret = alloc_exec_resources(args, env, &res);
+	ret = alloc_exec_resources(args, &res);
 	if (ret <= 0)
 	{
 		if (ret == 0)

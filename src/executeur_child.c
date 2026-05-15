@@ -6,12 +6,11 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 16:40:18 by louka             #+#    #+#             */
-/*   Updated: 2026/05/15 16:53:02 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/15 17:11:12 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-#include "includes/executeur_pipes.h"
 
 void	child_exec_body(int i, t_exec_res *res, t_args *args,
 		t_env_table *env)
@@ -25,7 +24,7 @@ void	child_exec_body(int i, t_exec_res *res, t_args *args,
 
 void	child_setup_pipes(int i, t_exec_res *res)
 {
-	int j;
+	int	j;
 
 	if (res->n_cmds <= 1)
 		return ;
@@ -44,7 +43,7 @@ void	child_setup_pipes(int i, t_exec_res *res)
 
 void	child_apply_redirs(int i, t_exec_res *res, t_args *args)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (args->files && args->files[j])
@@ -63,7 +62,7 @@ void	child_apply_redirs(int i, t_exec_res *res, t_args *args)
 
 void	child_close_opens(t_exec_res *res)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (res->opens[j])

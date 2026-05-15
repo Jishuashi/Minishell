@@ -14,6 +14,7 @@
 
 static char	*check_file_path(char *path, char type);
 static int	get_cmd_index(char **tokens, int idx);
+char		*get_file_type(char **tokens, int idx);
 
 t_file	**parse_files(char **tokens, t_file **files, int len)
 {

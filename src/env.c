@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 13:58:13 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 22:07:03 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/15 17:22:26 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,3 +81,26 @@ char	*get_value(char	*key, t_env_table *env)
 	}
 	return (NULL);
 }
+
+void	set_env_var(char *key, char *value, t_env_table *env)
+{
+	size_t	i;
+	char	*new_val;
+
+	i = 0;
+	while (i < env->size)
+	{
+		if (ft_strncmp(env->table[i].name, key, ft_strlen(key) + 1) == 0)
+		{
+			new_val = ft_strdup(value);
+			if (new_val)
+			{
+				free(env->table[i].value);
+				env->table[i].value = new_val;
+			}
+			return ;
+		}
+		i++;
+	}
+}
+
