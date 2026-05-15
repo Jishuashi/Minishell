@@ -6,13 +6,13 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 15:47:37 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/06 15:29:02 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/11 13:30:51 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*check_file_path(char *path);
+static char	*check_file_path(char *path, char type);
 char		*get_file_type(char **token, int idx);
 
 t_file	**parse_files(char **tokens, t_file **files, int len)
@@ -35,7 +35,7 @@ t_file	**parse_files(char **tokens, t_file **files, int len)
 			file->delimiter = ft_strdup(tokens[++i]);
 		else
 			file->delimiter = NULL;
-		file->path = check_file_path(tokens[++i]);
+		file->path = check_file_path(tokens[++i], file->type[0]);
 		if (j < len)
 			files[j++] = file;
 	}
@@ -57,8 +57,10 @@ char	*get_file_type(char **tokens, int idx)
 	return (res);
 }
 
-static char	*check_file_path(char *path)
+static char	*check_file_path(char *path, char type)
 {
+	if (type == 'H')
+		return (NULL);
 	if (ft_strchr(path, '/') && path[1] != '/')
 		return (ft_strjoin("./", path));
 	else if (ft_strchr(path, '/') && path[0] == '.')

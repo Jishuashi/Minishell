@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:24:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/04 16:48:18 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/11 14:00:23 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_cmd
 	char	*path;
 	char	**args;
 	t_openf	*in;
-	t_openf	**out;
+	t_openf	*out;
 }	t_cmd;
 
 typedef struct s_file
@@ -35,6 +35,7 @@ typedef struct s_args
 {
 	t_cmd	**cmds;
 	t_file	**files;
+	t_openf	**ofiles;
 	int		nb_file;
 }	t_args;
 

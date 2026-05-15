@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 21:24:16 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/25 21:49:00 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/11 13:27:34 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	free_files(t_file **files)
 		return (1);
 	while (files[i])
 	{
-		free(files[i]->path);
+		if (files[i]->path)
+			free(files[i]->path);
 		if (files[i]->delimiter)
 			free(files[i]->delimiter);
 		free(files[i]);
