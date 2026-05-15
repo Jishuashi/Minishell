@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:24:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/11 14:00:23 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/15 16:51:14 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_file
 	char	*path;
 	char	*type;
 	char	*delimiter;
+	int		cmd_index;
 }	t_file;
 
 typedef struct s_args
