@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executeur_setup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:36:30 by louka             #+#    #+#             */
-/*   Updated: 2026/05/11 14:06:52 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/15 17:11:32 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,63 +25,81 @@ int	process_command_line(char *line, t_env_table *env,
 	*args = parse_args(tokens, env);
 	if (!*args)
 		return (1);
-	(*args)->ofiles = open_files(*args);
 	if ((*args)->cmds && (*args)->cmds[0])
 		return (execute_args(*args, env));
 	return (0);
 }
 
-static int	pid_error(pid_t pid)
+static void	close_parent_pipes(int (*pipes)[2], int n_cmds)
 {
-	if (pid < 0)
+	int	k;
+
+	if (!pipes)
+		return ;
+	k = 0;
+	while (k < n_cmds - 1)
 	{
-		ft_putstr_fd("minishell: fork: ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
-		return (1);
+		close(pipes[k][0]);
+		close(pipes[k][1]);
+		k++;
 	}
-	return (0);
 }
 
-static int	create_child(pid_t pid, int status, t_args *args, t_env_table *env)
+static void	close_opens(t_openf **opens)
 {
-	struct sigaction	sa_int;
-	struct sigaction	sa_int_old;
+	int	i;
 
-	if (pid_error(pid) == 1)
-		return (1);
-	if (pid == 0)
-		run_child(args->cmds[0], env);
-	ft_bzero(&sa_int, sizeof(sa_int));
-	sa_int.sa_handler = SIG_IGN;
-	sigemptyset(&sa_int.sa_mask);
-	sigaction(SIGINT, &sa_int, &sa_int_old);
-	while (waitpid(pid, &status, 0) == -1)
+	i = 0;
+	while (opens[i])
 	{
-		if (errno != EINTR)
-		{
-			sigaction(SIGINT, &sa_int_old, NULL);
-			return (1);
-		}
+		if (opens[i]->fd > 2)
+			close(opens[i]->fd);
+		i++;
 	}
-	sigaction(SIGINT, &sa_int_old, NULL);
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	if (WIFSIGNALED(status))
-		return (128 + WTERMSIG(status));
-	return (1);
+}
+
+static int	wait_children_and_status(pid_t *pids, int n_cmds)
+{
+	int	i;
+	int	status;
+	int	last_status;
+
+	status = 0;
+	last_status = 0;
+	i = 0;
+	while (i < n_cmds)
+	{
+		if (waitpid(pids[i], &status, 0) != -1 && i == n_cmds - 1)
+		{
+			if (WIFEXITED(status))
+				last_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				last_status = 128 + WTERMSIG(status);
+		}
+		i++;
+	}
+	return (last_status);
 }
 
 int	execute_args(t_args *args, t_env_table *env)
 {
-	pid_t	pid;
-	int		status;
+	t_exec_res	res;
+	int			ret;
 
-	status = 0;
-	if (!args || !args->cmds || !args->cmds[0])
-		return (0);
-	if (!args->cmds[0]->path)
-		return (127);
-	pid = fork();
-	return (create_child(pid, status, args, env));
+	ret = alloc_exec_resources(args, &res);
+	if (ret <= 0)
+	{
+		if (ret == 0)
+			return (0);
+		return (1);
+	}
+	if (spawn_children(&res, args, env) == -1)
+		return (1);
+	close_parent_pipes(res.pipes, res.n_cmds);
+	close_opens(res.opens);
+	ret = wait_children_and_status(res.pids, res.n_cmds);
+	free(res.pids);
+	if (res.pipes)
+		free(res.pipes);
+	return (ret);
 }
