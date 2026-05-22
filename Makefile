@@ -1,57 +1,80 @@
-NAME            = minishell
+NAME        = minishell
 
-LIBFT_DIR       = src/libft
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror -g
+CPPFLAGS    = -I$(LIBFT_DIR)
+LDFLAGS     = -lreadline
+OBJ_DIR     = obj
+LIBFT_DIR   = src/libft
+LIBFT       = $(LIBFT_DIR)/libft.a
 
-LIBFT           = $(LIBFT_DIR)/libft.a
-CC              = cc
-CFLAGS          = -Wall -Wextra -Werror -g -I$(LIBFT_DIR)
-LDFLAGS			= -lreadline
+SRCS        = \
+	src/minishell.c \
+	src/utils/utils.c \
+	src/env.c \
+	src/prompt.c \
+	src/token_split.c \
+	src/token.c \
+	src/args.c \
+	src/variable_extend.c \
+	src/variable_extend_more.c \
+	src/utils/parse_files.c \
+	src/utils/parse_cmd.c \
+	src/utils/free.c \
+	src/open_file.c \
+	src/utils/parse_cmd_more.c \
+	src/utils/utils_files.c \
+	src/executeur.c \
+	src/executeur_setup.c \
+	src/executeur_pipes.c \
+	src/executeur_child.c \
+	src/heredoc.c
 
-RM              = rm -rf
-OBJ_DIR         = obj
+OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
-SRCS            = src/minishell.c				src/utils/utils.c			 src/env.c				src/prompt.c 			\
-			  src/token_split.c				src/token.c					src/args.c				src/variable_extend.c 	\
-			  src/variable_extend_more.c	src/utils/parse_files.c		src/utils/parse_cmd.c	src/utils/free.c 		\
-			  src/open_file.c				src/utils/parse_cmd_more.c	src/utils/utils_files.c src/executeur.c         \
-			  src/executeur_setup.c			src/executeur_pipes.c \
-			  src/executeur_child.c		src/heredoc.c
+vpath %.c $(sort $(dir $(SRCS)))
 
-OBJS            = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
+RM          = rm -f
+MKDIR       = mkdir -p
 
-GREEN           = \033[0;32m
-RED             = \033[0;31m
-RESET           = \033[0m
+YELLOW      = \033[1;33m
+CYAN        = \033[1;36m
+BLUE        = \033[1;34m
+RED         = \033[1;31m
+RESET       = \033[0m
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@echo -e "$(GREEN)Compiling $(NAME)...$(RESET)"
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
+	@printf "$(YELLOW)✔ $(NAME) built successfully$(RESET)\n"
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
 
-$(OBJ_DIR)/%.o: src/%.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: %.c
+	@$(MKDIR) $(dir $@)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	@printf "$(CYAN)• Compiled:$(RESET) %s\n" "$<"
 
 clean:
-	@echo "Cleaning objects..."
-	$(RM) $(OBJ_DIR)
+	@$(RM) -r $(OBJ_DIR)
+	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
 	@$(MAKE) -C $(LIBFT_DIR) clean
 
-fclean: clean
-	@echo "Cleaning executable..."
-	$(RM) $(NAME)
+fclean:
+	@$(RM) $(NAME)
+	@printf "$(RED)✦ Executable removed$(RESET)\n"
 	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(RM) -r $(OBJ_DIR)
+	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
 
 norm:
 	@ERR_COUNT=$$(norminette src/ | grep "Error" | wc -l); \
 	if [ $$ERR_COUNT -eq 0 ]; then \
-		echo -e "$(GREEN)Norminette: TOUT EST PARFAIT !$(RESET)"; \
+		printf "$(YELLOW)Norminette: TOUT EST PARFAIT !$(RESET)\n"; \
 	else \
-		echo -e "$(RED)Norminette: ERREURS TROUVÉES :$(RESET)"; \
+		printf "$(RED)Norminette: ERREURS TROUVÉES :$(RESET)\n"; \
 		norminette src/ | grep "Error"; \
 	fi
 
