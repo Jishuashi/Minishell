@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 14:46:53 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/11 14:06:02 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/26 23:12:27 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static	t_openf	*get_here_file(char *content)
 	{
 		ft_putstr_fd(content, res->fd);
 		free(content);
+		lseek(res->fd, 0, SEEK_SET);
 	}
 	res->status = 0;
 	res->type = "HEREDOC";
