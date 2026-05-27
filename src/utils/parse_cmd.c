@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/29 15:59:45 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/26 23:35:55 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char	*check_path_cmd(char *path, t_env_table *env)
 	int		i;
 
 	if (!path)
+		return (NULL);
+	if (is_builtin(path))
 		return (NULL);
 	if (ft_strchr(path, '/'))
 		return (ft_strdup(path));

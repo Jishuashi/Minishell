@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 16:40:18 by louka             #+#    #+#             */
-/*   Updated: 2026/05/15 17:11:12 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/27 11:33:04 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	child_exec_body(int i, t_exec_res *res, t_args *args,
 	child_setup_pipes(i, res);
 	child_apply_redirs(i, res, args);
 	child_close_opens(res);
-	run_child(args->cmds[i], env);
+	if (args->cmds[i] && args->cmds[i]->args && is_builtin(args->cmds[i]->args[0]))
+		execute_builtin(args->cmds[i], env);
+	else
+		run_child(args->cmds[i], env);
 }
 
 void	child_setup_pipes(int i, t_exec_res *res)
