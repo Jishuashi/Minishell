@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_extend.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:22:10 by louka             #+#    #+#             */
-/*   Updated: 2026/04/29 14:26:08 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/27 15:29:29 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	need_extend(char **var, t_env_table *env, int *i, char *token)
 		i[0]++;
 		return ;
 	}
-	var[1] = get_value(var[0], env);
+	var[1] = get_env_value(var[0], env);
 	if (var[1])
 		i[1] += ft_strlcpy(var[3] + i[1], var[1], 2048 - i[1]);
 	free(var[0]);

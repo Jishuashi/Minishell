@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 14:00:59 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/15 17:22:26 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/27 15:29:29 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ typedef struct s_env_table
 }	t_env_table;
 
 t_env_table	*create_env(char *envp[]);
-void		print_env(t_env_table *env);
-int			calloc_all(char ***var, int **i);
-char		*get_value(char	*key, t_env_table *env);
-void		set_env_var(char *key, char *value, t_env_table *env);
+char		*get_env_value(char	*key, t_env_table *env);
+void		set_env_value(char *key, char *value, t_env_table *env);
 
 #endif

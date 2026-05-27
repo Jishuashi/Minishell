@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/05/15 17:22:26 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/27 15:29:13 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	shell_loop(t_env_table *env)
 	setup_signals();
 	args = NULL;
 	last_status = 0;
-	set_env_var("?", "0", env);
+	set_env_value("?", "0", env);
 	while (1)
 	{
 		line = readline(get_prompt());
@@ -67,7 +67,7 @@ int	shell_loop(t_env_table *env)
 		status_str = ft_itoa(last_status);
 		if (status_str)
 		{
-			set_env_var("?", status_str, env);
+			set_env_value("?", status_str, env);
 			free(status_str);
 		}
 		free(line);
