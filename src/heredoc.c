@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 14:46:53 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/11 14:06:02 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/26 23:33:17 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,18 @@ static	t_openf	*get_here_file(char *content)
 	res = (t_openf *)malloc(sizeof(t_openf));
 	if (!res)
 		return (NULL);
-	res->fd = open("/tmp/heredoc", O_RDWR | O_TRUNC | O_CREAT, 0644);
+	res->fd = open("/tmp/heredoc", O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	if (res->fd == -1)
+		return (free(res), NULL);
 	if (content)
 	{
 		ft_putstr_fd(content, res->fd);
 		free(content);
 	}
+	close(res->fd);
+	res->fd = open("/tmp/heredoc", O_RDONLY);
+	if (res->fd == -1)
+		return (free(res), NULL);
 	res->status = 0;
 	res->type = "HEREDOC";
 	return (res);

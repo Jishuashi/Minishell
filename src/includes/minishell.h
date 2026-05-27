@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:33:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/15 16:58:09 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/26 23:35:55 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "args.h"
 # include "parse_files.h"
 # include "open_file.h"
+# include "builtin.h"
 # include "executeur_pipes.h"
 # include "parse_cmd.h"
 # include "free.h"

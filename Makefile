@@ -24,6 +24,7 @@ SRCS        = \
 	src/open_file.c \
 	src/utils/parse_cmd_more.c \
 	src/utils/utils_files.c \
+	src/utils/builtin.c \
 	src/executeur.c \
 	src/executeur_setup.c \
 	src/executeur_pipes.c \
