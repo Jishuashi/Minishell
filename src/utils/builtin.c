@@ -6,11 +6,41 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 23:36:23 by louka             #+#    #+#             */
-/*   Updated: 2026/05/27 11:34:39 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/27 15:53:46 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static void	print_echo(t_cmd *cmd, int i)
+{
+	if (cmd->args[i] != NULL)
+	{
+		printf("%s", cmd->args[i]);
+		if (cmd->args[i + 1] != NULL)
+		{
+			printf(" ");
+			print_echo(cmd, i + 1);
+		}
+	}
+}
+
+static void	ft_echo(t_cmd *cmd)
+{
+	if (cmd->args[1][0] == '-')
+	{
+		if (ft_strlen(cmd->args[1]) == 2)
+		{
+			if (cmd->args[1][1] == 'n')
+			{
+				print_echo(cmd, 2);
+				return ;
+			}
+		}
+	}
+	print_echo(cmd, 1);
+	printf("\n");
+}
 
 int	is_builtin(char *cmd)
 {
@@ -26,8 +56,12 @@ int	is_builtin(char *cmd)
 
 int	execute_builtin(t_cmd *cmd, t_env_table *env)
 {
-	(void)cmd;
-	(void)env;
-	return (0);
+	if (!ft_strncmp(cmd->args[0], "pwd", 4))
+		printf("%s\n", get_value("PWD", env));
+	if (!ft_strncmp(cmd->args[0], "env", 4))
+		print_env(env);
+	if (!ft_strncmp(cmd->args[0], "echo", 4))
+		ft_echo(cmd);
+	return (1);
 }
 
