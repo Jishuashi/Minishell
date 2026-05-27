@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executeur_child.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 16:40:18 by louka             #+#    #+#             */
-/*   Updated: 2026/05/27 11:33:04 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/27 12:10:26 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	child_exec_body(int i, t_exec_res *res, t_args *args,
 	child_setup_pipes(i, res);
 	child_apply_redirs(i, res, args);
 	child_close_opens(res);
-	if (args->cmds[i] && args->cmds[i]->args && is_builtin(args->cmds[i]->args[0]))
+	if (args->cmds[i] && args->cmds[i]->args
+		&& is_builtin(args->cmds[i]->args[0]))
 		execute_builtin(args->cmds[i], env);
 	else
 		run_child(args->cmds[i], env);

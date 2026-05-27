@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/26 23:35:55 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/27 12:11:10 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,11 @@ char	*check_path_cmd(char *path, t_env_table *env)
 	paths = ft_split(path_env, ':');
 	if (!paths)
 		return (NULL);
-	i = 0;
-	while (paths[i])
+	i = -1;
+	while (paths[i++])
 	{
 		if (check_acces(i, paths, &full_path, path) == 0)
 			return (ft_free_all(paths), full_path);
-		i++;
 	}
 	ft_cmd_not_found(paths, path);
 	return (NULL);

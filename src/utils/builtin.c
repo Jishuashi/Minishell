@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 23:36:23 by louka             #+#    #+#             */
-/*   Updated: 2026/05/27 11:34:39 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/27 12:10:41 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,3 @@ int	execute_builtin(t_cmd *cmd, t_env_table *env)
 	(void)env;
 	return (0);
 }
-
