@@ -6,13 +6,14 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 22:34:42 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/11 13:57:15 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/27 17:08:49 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-static int	ft_open(t_file *file);
+static int		ft_open(t_file *file);
+static t_openf	*process_file(t_file *file);
 
 t_openf	**open_files(t_args *args)
 {
@@ -25,20 +26,27 @@ t_openf	**open_files(t_args *args)
 		return (NULL);
 	while (args->files[i])
 	{
-		if (!ft_strncmp(args->files[i]->type, "HEREDOC", 8))
-			res[i] = heredoc(args->files[i]->delimiter);
-		else
-		{
-			res[i] = (t_openf *)malloc(sizeof(t_openf));
-			if (!res[i])
-				return (free(res), NULL);
-			res[i]->status = check_files(args->files[i]);
-			res[i]->type = args->files[i]->type;
-			res[i]->fd = ft_open(args->files[i]);
-		}
+		res[i] = process_file(args->files[i]);
+		if (!res[i])
+			return (free(res), NULL);
 		i++;
 	}
 	res[i] = NULL;
+	return (res);
+}
+
+static t_openf	*process_file(t_file *file)
+{
+	t_openf	*res;
+
+	if (!ft_strncmp(file->type, "HEREDOC", 8))
+		return (heredoc(file->delimiter));
+	res = (t_openf *)malloc(sizeof(t_openf));
+	if (!res)
+		return (NULL);
+	res->status = check_files(file);
+	res->type = file->type;
+	res->fd = ft_open(file);
 	return (res);
 }
 
