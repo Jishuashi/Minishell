@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 13:58:13 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/15 17:22:26 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/27 15:54:31 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,36 @@ static int	fill_env(t_env *entry, char *env_line)
 	return (entry->name && entry->value);
 }
 
+t_env_table	*empty_env(void)
+{
+	t_env_table	*res;
+	char		buff[1024];
+
+	res = (t_env_table *)malloc(sizeof(t_env_table));
+	if (!res)
+		return (NULL);
+	res->size = 3;
+	res->table = (t_env *)malloc(sizeof(t_env) * res->size);
+	if (!res->table)
+		return (free(res), NULL);
+	res->table[0].name = ft_strdup("PWD");
+	getcwd(buff, 1024);
+	res->table[0].value = ft_strdup(buff);
+	res->table[1].name = ft_strdup("SHLVL");
+	res->table[1].value = ft_strdup("1");
+	res->table[2].name = ft_strdup("_");
+	res->table[2].value = ft_strdup("/usr/bin/env");
+	return (res);
+}
+
 t_env_table	*create_env(char *envp[])
 {
 	t_env_table	*res;
 	size_t		len;
 	size_t		i;
 
+	if (!envp[0])
+		return (empty_env());
 	len = count_double_char(envp);
 	res = (t_env_table *)malloc(sizeof(t_env_table));
 	if (!res)
@@ -49,26 +73,13 @@ t_env_table	*create_env(char *envp[])
 	while (i < len)
 	{
 		if (!fill_env(&res->table[i], envp[i]))
-			return (NULL);
+			return (free(res), NULL);
 		i++;
 	}
 	return (res);
 }
 
-void	print_env(t_env_table *env)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < env->size)
-	{
-		ft_printf("%s=", env->table[i].name);
-		ft_printf("%s\n", env->table[i].value);
-		i++;
-	}
-}
-
-char	*get_value(char	*key, t_env_table *env)
+char	*get_env_value(char	*key, t_env_table *env)
 {
 	size_t	i;
 
@@ -82,7 +93,7 @@ char	*get_value(char	*key, t_env_table *env)
 	return (NULL);
 }
 
-void	set_env_var(char *key, char *value, t_env_table *env)
+void	set_env_value(char *key, char *value, t_env_table *env)
 {
 	size_t	i;
 	char	*new_val;
@@ -103,4 +114,3 @@ void	set_env_var(char *key, char *value, t_env_table *env)
 		i++;
 	}
 }
-

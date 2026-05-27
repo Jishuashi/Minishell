@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 23:36:23 by louka             #+#    #+#             */
-/*   Updated: 2026/05/27 15:53:46 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/27 16:06:27 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,3 @@ int	execute_builtin(t_cmd *cmd, t_env_table *env)
 		ft_echo(cmd);
 	return (1);
 }
-
