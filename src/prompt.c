@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/05/27 15:29:13 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/27 16:50:42 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 volatile sig_atomic_t	g_signal;
 
-static void	on_sigint(int signum)
+void	on_sigint(int signum)
 {
 	(void)signum;
-	g_signal = 0;
-	write(1, "\n", 1);
+	g_signal = SIGINT;
+	printf("\n");
+	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }
 
-static void	setup_signals(void)
+void	setup_signals(void)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
