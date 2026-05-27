@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/27 12:11:10 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/27 15:29:29 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*check_path_cmd(char *path, t_env_table *env)
 		return (NULL);
 	if (ft_strchr(path, '/'))
 		return (ft_strdup(path));
-	path_env = get_value("PATH", env);
+	path_env = get_env_value("PATH", env);
 	if (!path_env)
 		return (ft_cmd_not_found_two(path), NULL);
 	paths = ft_split(path_env, ':');
