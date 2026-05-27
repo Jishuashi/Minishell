@@ -20,7 +20,10 @@ void	child_exec_body(int i, t_exec_res *res, t_args *args,
 	child_apply_redirs(i, res, args);
 	child_close_opens(res);
 	if (args->cmds[i] && args->cmds[i]->args && is_builtin(args->cmds[i]->args[0]))
+	{
 		execute_builtin(args->cmds[i], env);
+		_exit(0);
+	}
 	else
 		run_child(args->cmds[i], env);
 }
