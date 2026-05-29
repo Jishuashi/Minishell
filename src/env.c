@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 13:58:13 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/27 15:54:31 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/29 14:51:02 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_env_table	*create_env(char *envp[])
 			return (free(res), NULL);
 		i++;
 	}
+	increment_shlvl(res);
 	return (res);
 }
 
@@ -113,4 +114,5 @@ void	set_env_value(char *key, char *value, t_env_table *env)
 		}
 		i++;
 	}
+	add_env_value(key, value, env);
 }

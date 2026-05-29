@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   executeur_setup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:36:30 by louka             #+#    #+#             */
-/*   Updated: 2026/05/15 17:11:32 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/29 17:00:31 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-int	process_command_line(char *line, t_env_table *env,
-		t_args **args, int last_status)
+int	process_command_line(char *line, t_env_table *env, t_args **args,
+		int last_status)
 {
 	char	**tokens;
 
@@ -45,18 +45,7 @@ static void	close_parent_pipes(int (*pipes)[2], int n_cmds)
 	}
 }
 
-static void	close_opens(t_openf **opens)
-{
-	int	i;
 
-	i = 0;
-	while (opens[i])
-	{
-		if (opens[i]->fd > 2)
-			close(opens[i]->fd);
-		i++;
-	}
-}
 
 static int	wait_children_and_status(pid_t *pids, int n_cmds)
 {
@@ -81,6 +70,8 @@ static int	wait_children_and_status(pid_t *pids, int n_cmds)
 	return (last_status);
 }
 
+
+
 int	execute_args(t_args *args, t_env_table *env)
 {
 	t_exec_res	res;
@@ -93,6 +84,9 @@ int	execute_args(t_args *args, t_env_table *env)
 			return (0);
 		return (1);
 	}
+	if (res.n_cmds == 1 && args->cmds && args->cmds[0] && args->cmds[0]->args
+		&& is_builtin(args->cmds[0]->args[0]))
+		return (run_builtin(&res, args, env));
 	if (spawn_children(&res, args, env) == -1)
 		return (1);
 	close_parent_pipes(res.pipes, res.n_cmds);

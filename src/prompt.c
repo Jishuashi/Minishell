@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/05/27 16:50:42 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/29 16:44:37 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,23 @@ const char	*get_prompt(void)
 	return ("minishell> ");
 }
 
-int	shell_loop(t_env_table *env)
+int	shell_loop(t_env_table *env, int last_status)
 {
 	char	*line;
 	t_args	*args;
-	int		last_status;
 	char	*status_str;
 
 	setup_signals();
 	args = NULL;
-	last_status = 0;
 	set_env_value("?", "0", env);
 	while (1)
 	{
 		line = readline(get_prompt());
 		if (!line)
-			break ;
+			exit_shell(last_status, env);
 		last_status = process_command_line(line, env, &args, last_status);
+		if (last_status < 0)
+			exit_shell(-last_status - 1, env);
 		status_str = ft_itoa(last_status);
 		if (status_str)
 		{

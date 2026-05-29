@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:25 by hchartie          #+#    #+#             */
-/*   Updated: 2026/04/29 15:59:50 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/29 16:49:42 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ void	push_arg(t_cmd *cmd, char **tokens, int *i, t_env_table *env);
 void	ft_cmd_not_found(char **paths, char *path);
 void	ft_cmd_not_found_two(char *path);
 void	fill_args(t_cmd *cmd, char **tokens, int *i, t_env_table *env);
+char	*dup_path_token(char *path);
+char	*search_cmd_in_paths(char **paths, char *path);
 
 #endif

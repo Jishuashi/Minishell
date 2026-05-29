@@ -1,6 +1,7 @@
 NAME        = minishell
 
 CC          = cc
+MAKEFLAGS += --no-print-directory
 CFLAGS      = -Wall -Wextra -Werror -g
 CPPFLAGS    = -I$(LIBFT_DIR)
 LDFLAGS     = -lreadline
@@ -12,6 +13,7 @@ SRCS        = \
 	src/minishell.c \
 	src/utils/utils.c \
 	src/env.c \
+	src/env_more.c \
 	src/prompt.c \
 	src/token_split.c \
 	src/token.c \
@@ -25,11 +27,14 @@ SRCS        = \
 	src/utils/parse_cmd_more.c \
 	src/utils/utils_files.c \
 	src/utils/builtin.c \
+	src/utils/builtin_more.c \
 	src/executeur.c \
 	src/executeur_setup.c \
+	src/executeur_helpers.c \
 	src/executeur_pipes.c \
 	src/executeur_child.c \
-	src/heredoc.c
+	src/heredoc.c \
+	src/utils/parse_cmd_more_more.c
 
 OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
