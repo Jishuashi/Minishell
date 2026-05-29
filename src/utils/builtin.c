@@ -6,7 +6,7 @@
 /*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 23:36:23 by louka             #+#    #+#             */
-/*   Updated: 2026/05/29 16:57:31 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/05/29 17:05:52 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	execute_builtin(t_cmd *cmd, t_env_table *env)
 	{
 		if (cmd->args[1])
 			return (-(ft_atoi(cmd->args[1]) + 1));
-		return (-(0 + 1));
+		return (-1);
 	}
 	else if (!ft_strncmp(cmd->args[0], "unset", 5))
 	{
