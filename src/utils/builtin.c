@@ -6,12 +6,9 @@
 /*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2026/05/29 17:13:27 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/05/29 17:14:23 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #include "../includes/minishell.h"
 
