@@ -6,7 +6,7 @@
 /*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/05/29 14:25:07 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/05/29 16:44:37 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,14 @@ const char	*get_prompt(void)
 	return ("minishell> ");
 }
 
-int	shell_loop(t_env_table *env)
+int	shell_loop(t_env_table *env, int last_status)
 {
 	char	*line;
 	t_args	*args;
-	int		last_status;
 	char	*status_str;
 
 	setup_signals();
 	args = NULL;
-	last_status = 0;
 	set_env_value("?", "0", env);
 	while (1)
 	{

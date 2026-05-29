@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/27 15:29:29 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/29 16:48:47 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,29 +90,20 @@ char	*check_path_cmd(char *path, t_env_table *env)
 {
 	char	*path_env;
 	char	**paths;
-	char	*full_path;
-	int		i;
 
 	if (!path)
 		return (NULL);
 	if (is_builtin(path))
 		return (NULL);
 	if (ft_strchr(path, '/'))
-		return (ft_strdup(path));
+		return (dup_path_token(path));
 	path_env = get_env_value("PATH", env);
 	if (!path_env)
 		return (ft_cmd_not_found_two(path), NULL);
 	paths = ft_split(path_env, ':');
 	if (!paths)
 		return (NULL);
-	i = -1;
-	while (paths[i++])
-	{
-		if (check_acces(i, paths, &full_path, path) == 0)
-			return (ft_free_all(paths), full_path);
-	}
-	ft_cmd_not_found(paths, path);
-	return (NULL);
+	return (search_cmd_in_paths(paths, path));
 }
 
 int	count_args(char **tokens, int i)

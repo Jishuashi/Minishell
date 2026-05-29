@@ -6,7 +6,7 @@
 /*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 13:55:33 by louka2b           #+#    #+#             */
-/*   Updated: 2026/05/29 16:30:46 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/05/29 16:53:52 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	export_one(char *arg, t_env_table *env)
 
 void	ft_export(char **cmd, t_env_table *env)
 {
-	int i;
+	int	i;
 
 	if (cmd[1] == NULL)
 	{
