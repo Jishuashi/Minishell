@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/26 23:36:23 by louka             #+#    #+#             */
-/*   Updated: 2026/05/29 16:57:31 by louka2b          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2026/05/29 17:14:23 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	execute_builtin(t_cmd *cmd, t_env_table *env)
 	if (!ft_strncmp(cmd->args[0], "pwd", 4))
 		printf("%s\n", get_env_value("PWD", env));
 	else if (!ft_strncmp(cmd->args[0], "env", 4))
+		printf("%s\n", get_env_value("PWD", env));
+	else if (!ft_strncmp(cmd->args[0], "env", 4))
 		print_env(env);
 	else if (!ft_strncmp(cmd->args[0], "echo", 4))
 		ft_echo(cmd);
@@ -66,7 +68,7 @@ int	execute_builtin(t_cmd *cmd, t_env_table *env)
 	{
 		if (cmd->args[1])
 			return (-(ft_atoi(cmd->args[1]) + 1));
-		return (-(0 + 1));
+		return (-1);
 	}
 	else if (!ft_strncmp(cmd->args[0], "unset", 5))
 	{
