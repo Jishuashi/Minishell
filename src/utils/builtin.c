@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 23:36:23 by louka             #+#    #+#             */
-/*   Updated: 2026/05/27 16:06:27 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/29 14:03:51 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,17 @@ int	is_builtin(char *cmd)
 int	execute_builtin(t_cmd *cmd, t_env_table *env)
 {
 	if (!ft_strncmp(cmd->args[0], "pwd", 4))
-		printf("%s\n", get_value("PWD", env));
+		printf("%s\n", get_env_value("PWD", env));
 	if (!ft_strncmp(cmd->args[0], "env", 4))
 		print_env(env);
 	if (!ft_strncmp(cmd->args[0], "echo", 4))
 		ft_echo(cmd);
-	return (1);
+	if (!ft_strncmp(cmd->args[0], "exit", 4))
+	{
+		if (cmd->args[1])
+			exit_shell(ft_atoi(cmd->args[1]), env);
+		else
+			exit_shell(0, env);
+	}
+	return (0);
 }

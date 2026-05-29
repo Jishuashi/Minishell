@@ -93,6 +93,20 @@ int	execute_args(t_args *args, t_env_table *env)
 			return (0);
 		return (1);
 	}
+
+	/* If there's only one command and it's a builtin, run it in the parent */
+	if (res.n_cmds == 1 && args->cmds && args->cmds[0]
+		&& args->cmds[0]->args && is_builtin(args->cmds[0]->args[0]))
+	{
+		int	status;
+		status = execute_builtin(args->cmds[0], env);
+		if (res.opens)
+			close_opens(res.opens);
+		free(res.pids);
+		if (res.pipes)
+			free(res.pipes);
+		return (status);
+	}
 	if (spawn_children(&res, args, env) == -1)
 		return (1);
 	close_parent_pipes(res.pipes, res.n_cmds);

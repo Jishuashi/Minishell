@@ -1,6 +1,7 @@
 NAME        = minishell
 
 CC          = cc
+MAKEFLAGS += --no-print-directory
 CFLAGS      = -Wall -Wextra -Werror -g
 CPPFLAGS    = -I$(LIBFT_DIR)
 LDFLAGS     = -lreadline
@@ -25,6 +26,7 @@ SRCS        = \
 	src/utils/parse_cmd_more.c \
 	src/utils/utils_files.c \
 	src/utils/builtin.c \
+	src/utils/builtin_more.c \
 	src/executeur.c \
 	src/executeur_setup.c \
 	src/executeur_pipes.c \
