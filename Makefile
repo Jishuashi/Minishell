@@ -13,6 +13,7 @@ SRCS        = \
 	src/minishell.c \
 	src/utils/utils.c \
 	src/env.c \
+	src/env_more.c \
 	src/prompt.c \
 	src/token_split.c \
 	src/token.c \
