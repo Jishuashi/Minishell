@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executeur_setup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:36:30 by louka             #+#    #+#             */
-/*   Updated: 2026/05/15 17:11:32 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/29 14:23:15 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ int	execute_args(t_args *args, t_env_table *env)
 			return (0);
 		return (1);
 	}
-
-	/* If there's only one command and it's a builtin, run it in the parent */
 	if (res.n_cmds == 1 && args->cmds && args->cmds[0]
 		&& args->cmds[0]->args && is_builtin(args->cmds[0]->args[0]))
 	{

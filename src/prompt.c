@@ -6,7 +6,7 @@
 /*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 12:09:53 by louka             #+#    #+#             */
-/*   Updated: 2026/05/29 14:03:56 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/05/29 14:25:07 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	shell_loop(t_env_table *env)
 		if (!line)
 			exit_shell(last_status, env);
 		last_status = process_command_line(line, env, &args, last_status);
+		if (last_status < 0)
+			exit_shell(-last_status - 1, env);
 		status_str = ft_itoa(last_status);
 		if (status_str)
 		{
