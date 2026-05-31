@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 22:34:42 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/27 17:08:49 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/31 15:43:32 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int		ft_open(t_file *file);
 static t_openf	*process_file(t_file *file);
+static void		free_open_files(t_openf **opens);
 
 t_openf	**open_files(t_args *args)
 {
@@ -28,11 +29,29 @@ t_openf	**open_files(t_args *args)
 	{
 		res[i] = process_file(args->files[i]);
 		if (!res[i])
-			return (free(res), NULL);
+		{
+			free_open_files(res);
+			return (NULL);
+		}
 		i++;
 	}
 	res[i] = NULL;
 	return (res);
+}
+
+static void	free_open_files(t_openf **opens)
+{
+	int	i;
+
+	i = 0;
+	while (opens && opens[i])
+	{
+		if (opens[i]->fd > 2)
+			close(opens[i]->fd);
+		free(opens[i]);
+		i++;
+	}
+	free(opens);
 }
 
 static t_openf	*process_file(t_file *file)

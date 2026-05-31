@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:36:30 by louka             #+#    #+#             */
-/*   Updated: 2026/05/31 14:23:11 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/31 15:43:51 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ int	execute_args(t_args *args, t_env_table *env)
 	if (spawn_children(&res, args, env) == -1)
 		return (1);
 	close_parent_pipes(res.pipes, res.n_cmds);
-	close_opens(res.opens);
+	if (res.opens)
+		free_opens(res.opens);
 	ret = wait_children_and_status(res.pids, res.n_cmds);
 	free(res.pids);
 	if (res.pipes)
