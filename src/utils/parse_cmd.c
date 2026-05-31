@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/30 17:40:53 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/31 14:30:41 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,57 +61,24 @@ void	push_arg(t_cmd *cmd, char **tokens, int *i, t_env_table *env)
 {
 	int		j;
 	char	*arg;
-	char	*home;
-	char	*temp;
-	int		expanded;
+	char	*exp;
 
 	j = 0;
-	while (cmd->args[j] != NULL)
+	while (cmd->args[j])
 		j++;
 	arg = tokens[*i];
-	expanded = 0;
+	exp = NULL;
 	if (arg && arg[0] == '~')
-	{
-		home = get_env_value("HOME", env);
-		if (home)
-		{
-			temp = ft_strdup(arg);
-			if (temp)
-			{
-				arg = extend_tilde(temp, home);
-				if (arg)
-					expanded = 1;
-				else
-					arg = tokens[*i];
-			}
-		}
-	}
+		exp = extend_tilde(ft_strdup(arg), get_env_value("HOME", env));
+	if (exp)
+		arg = exp;
+	cmd->args[j] = ft_strdup(arg);
+	if (!cmd->args[j])
+		return (free(exp), ++(*i), (void)0);
 	if (j == 0)
-	{
-		cmd->args[j] = ft_strdup(arg);
-		if (!cmd->args[j])
-		{
-			if (expanded)
-				free(arg);
-			(*i)++;
-			return ;
-		}
 		cmd->path = check_path_cmd(arg, env);
-	}
-	else
-	{
-		cmd->args[j] = ft_strdup(arg);
-		if (!cmd->args[j])
-		{
-			if (expanded)
-				free(arg);
-			(*i)++;
-			return ;
-		}
-	}
-	if (expanded)
-		free(arg);
-	(*i)++;
+	free(exp);
+	++(*i);
 }
 
 char	*check_path_cmd(char *path, t_env_table *env)

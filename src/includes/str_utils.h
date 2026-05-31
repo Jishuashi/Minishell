@@ -6,13 +6,13 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 13:28:46 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/31 13:37:07 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/31 14:22:53 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STR_UTILS_H
 # define STR_UTILS_H
 
-char *ft_strfreejoin(char *s, char *join);
+char	*ft_strfreejoin(char *s, char *join);
 
-# endif
+#endif

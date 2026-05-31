@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executeur.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 12:23:15 by louka             #+#    #+#             */
-/*   Updated: 2026/05/29 17:00:47 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/05/31 14:14:47 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ size_t	count_cmds(t_cmd **cmds);
 int		process_command_line(char *line, t_env_table *env,
 			t_args **args, int last_status);
 void	close_opens(t_openf **opens);
-int	run_builtin(t_exec_res *res, t_args *args, t_env_table *env);
+int		run_builtin(t_exec_res *res, t_args *args, t_env_table *env);
 
 #endif
