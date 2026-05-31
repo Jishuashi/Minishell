@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_files.h                                      :+:      :+:    :+:   */
+/*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/25 18:03:54 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/30 15:47:02 by hchartie         ###   ########.fr       */
+/*   Created: 2026/05/31 13:30:10 by hchartie          #+#    #+#             */
+/*   Updated: 2026/05/31 13:40:11 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_FILES_H
-# define PARSE_FILES_H
+#include "../includes/minishell.h"
 
-typedef struct s_file		t_file;
-typedef struct s_env_table	t_env_table;
+char *ft_strfreejoin(char *s, char *join)
+{
+	char *temp;
 
-t_file	**parse_files(char **tokens, t_file **files, int len, t_env_table *env);
-
-#endif
+	temp = s;
+	s = ft_strjoin(s, join);
+	free(temp);
+	return (s);
+}

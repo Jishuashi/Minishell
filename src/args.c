@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:23:11 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/05 12:32:11 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/30 15:46:57 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	count_file(char **tokens)
 
 static	t_args	*fill_args_args(t_args *args, char **tokens, t_env_table *env)
 {
-	args->files = parse_files(tokens, args->files, count_file(tokens));
+	args->files = parse_files(tokens, args->files, count_file(tokens), env);
 	if (!args->files)
 		return (NULL);
 	args->cmds = parse_cmd(tokens, args->cmds, env);

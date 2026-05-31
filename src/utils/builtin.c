@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2026/05/29 17:14:23 by louka2b          ###   ########.fr       */
+/*   Created: 2026/05/30 16:57:12 by ldplace           #+#    #+#             */
+/*   Updated: 2026/05/30 16:57:23 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ int	execute_builtin(t_cmd *cmd, t_env_table *env)
 	if (!ft_strncmp(cmd->args[0], "pwd", 4))
 		printf("%s\n", get_env_value("PWD", env));
 	else if (!ft_strncmp(cmd->args[0], "env", 4))
-		printf("%s\n", get_env_value("PWD", env));
-	else if (!ft_strncmp(cmd->args[0], "env", 4))
 		print_env(env);
 	else if (!ft_strncmp(cmd->args[0], "echo", 4))
 		ft_echo(cmd);
@@ -77,6 +75,8 @@ int	execute_builtin(t_cmd *cmd, t_env_table *env)
 	}
 	else if (!ft_strncmp(cmd->args[0], "export", 7))
 		ft_export(cmd->args, env);
+	else if (!ft_strncmp(cmd->args[0], "cd", 3))
+		ft_cd(cmd->args, env);
 	return (0);
 }
 
