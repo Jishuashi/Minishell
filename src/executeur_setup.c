@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executeur_setup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:36:30 by louka             #+#    #+#             */
-/*   Updated: 2026/05/29 17:00:31 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/05/31 14:23:11 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static void	close_parent_pipes(int (*pipes)[2], int n_cmds)
 	}
 }
 
-
-
 static int	wait_children_and_status(pid_t *pids, int n_cmds)
 {
 	int	i;
@@ -69,8 +67,6 @@ static int	wait_children_and_status(pid_t *pids, int n_cmds)
 	}
 	return (last_status);
 }
-
-
 
 int	execute_args(t_args *args, t_env_table *env)
 {

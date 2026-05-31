@@ -4,7 +4,14 @@ CC          = cc
 MAKEFLAGS += --no-print-directory
 CFLAGS      = -Wall -Wextra -Werror -g
 CPPFLAGS    = -I$(LIBFT_DIR)
-LDFLAGS     = -lreadline
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S),Darwin)
+    CFLAGS  += -I/opt/homebrew/opt/readline/include
+    LDFLAGS += -L/opt/homebrew/opt/readline/lib -lreadline
+else
+    LDFLAGS += -lreadline
+endif
 OBJ_DIR     = obj
 LIBFT_DIR   = src/libft
 LIBFT       = $(LIBFT_DIR)/libft.a
@@ -34,7 +41,9 @@ SRCS        = \
 	src/executeur_pipes.c \
 	src/executeur_child.c \
 	src/heredoc.c \
-	src/utils/parse_cmd_more_more.c
+	src/utils/parse_cmd_more_more.c \
+	src/utils/cd.c \
+	src/utils/str_utils.c \
 
 OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/29 16:48:47 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/05/31 14:30:41 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 	int		j;
 
 	argc = count_args(tokens, *i);
-	cmd = malloc(sizeof(t_cmd) + sizeof(char *) * (argc + 1));
+	cmd = malloc(sizeof(t_cmd) + sizeof(char *) * (argc + 2));
 	if (!cmd)
 		return (NULL);
 	cmd->path = NULL;
 	cmd->args = (char **)((char *)cmd + sizeof(t_cmd));
 	j = 0;
-	while (j <= argc)
+	while (j <= (argc + 1))
 	{
 		cmd->args[j] = NULL;
 		j++;
@@ -59,31 +59,26 @@ t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 
 void	push_arg(t_cmd *cmd, char **tokens, int *i, t_env_table *env)
 {
-	int	j;
+	int		j;
+	char	*arg;
+	char	*exp;
 
 	j = 0;
-	while (cmd->args[j] != NULL)
+	while (cmd->args[j])
 		j++;
+	arg = tokens[*i];
+	exp = NULL;
+	if (arg && arg[0] == '~')
+		exp = extend_tilde(ft_strdup(arg), get_env_value("HOME", env));
+	if (exp)
+		arg = exp;
+	cmd->args[j] = ft_strdup(arg);
+	if (!cmd->args[j])
+		return (free(exp), ++(*i), (void)0);
 	if (j == 0)
-	{
-		cmd->args[j] = ft_strdup(tokens[*i]);
-		if (!cmd->args[j])
-		{
-			(*i)++;
-			return ;
-		}
-		cmd->path = check_path_cmd(tokens[*i], env);
-	}
-	else
-	{
-		cmd->args[j] = ft_strdup(tokens[*i]);
-		if (!cmd->args[j])
-		{
-			(*i)++;
-			return ;
-		}
-	}
-	(*i)++;
+		cmd->path = check_path_cmd(arg, env);
+	free(exp);
+	++(*i);
 }
 
 char	*check_path_cmd(char *path, t_env_table *env)

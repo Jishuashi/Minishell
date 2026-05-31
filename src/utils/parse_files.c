@@ -6,18 +6,18 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 15:47:37 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/27 16:47:12 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/30 15:47:25 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char		*check_file_path(char *path, char type);
+static char		*check_file_path(char *path, char type, t_env_table *env);
 static int		get_cmd_index(char **tokens, int idx);
-static t_file	*create_file_node(char **tokens, int *i);
+static t_file	*create_file_node(char **tokens, int *i, t_env_table *env);
 char			*get_file_type(char **tokens, int idx);
 
-t_file	**parse_files(char **tokens, t_file **files, int len)
+t_file	**parse_files(char **tokens, t_file **files, int len, t_env_table *env)
 {
 	int		i;
 	int		j;
@@ -29,7 +29,7 @@ t_file	**parse_files(char **tokens, t_file **files, int len)
 	{
 		if (tokens[i][0] != '<' && tokens[i][0] != '>')
 			continue ;
-		file = create_file_node(tokens, &i);
+		file = create_file_node(tokens, &i, env);
 		if (!file)
 			return (NULL);
 		if (j < len)
@@ -39,7 +39,7 @@ t_file	**parse_files(char **tokens, t_file **files, int len)
 	return (files);
 }
 
-static t_file	*create_file_node(char **tokens, int *i)
+static t_file	*create_file_node(char **tokens, int *i, t_env_table *env)
 {
 	t_file	*file;
 	int		cmd_idx;
@@ -52,12 +52,12 @@ static t_file	*create_file_node(char **tokens, int *i)
 	if (file->type[0] == 'H')
 	{
 		file->delimiter = ft_strdup(tokens[++(*i)]);
-		file->path = check_file_path(NULL, file->type[0]);
+		file->path = check_file_path(NULL, file->type[0], env);
 	}
 	else
 	{
 		file->delimiter = NULL;
-		file->path = check_file_path(tokens[++(*i)], file->type[0]);
+		file->path = check_file_path(tokens[++(*i)], file->type[0], env);
 	}
 	file->cmd_index = cmd_idx;
 	return (file);
@@ -93,13 +93,30 @@ static int	get_cmd_index(char **tokens, int idx)
 	return (cmd_idx);
 }
 
-static char	*check_file_path(char *path, char type)
+static char	*check_file_path(char *path, char type, t_env_table *env)
 {
+	char	*home;
+	char	*result;
+	int		is_tilde;
+
 	if (type == 'H')
 		return (NULL);
+	if (!path)
+		return (NULL);
+	is_tilde = 0;
+	if (path[0] == '~')
+	{
+		is_tilde = 1;
+		home = get_env_value("HOME", env);
+		path = extend_tilde(path, home);
+	}
 	if (ft_strchr(path, '/') && path[1] != '/')
-		return (ft_strjoin("./", path));
-	if (ft_strchr(path, '/') && path[0] == '.')
-		return (ft_strdup(path));
-	return (ft_strjoin("./", path));
+		result = ft_strjoin("./", path);
+	else if (ft_strchr(path, '/') && path[0] == '.')
+		result = ft_strdup(path);
+	else
+		result = ft_strjoin("./", path);
+	if (is_tilde)
+		free(path);
+	return (result);
 }

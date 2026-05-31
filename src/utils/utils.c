@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 14:09:17 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/27 15:35:04 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/31 14:13:22 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,25 @@ void	print_env(t_env_table *env)
 		ft_printf("%s\n", env->table[i].value);
 		i++;
 	}
+}
+
+char	*extend_tilde(char *path, char *home)
+{
+	size_t	i;
+	char	*temp;
+
+	if (!path)
+		return (NULL);
+	if (path[0] != '~')
+		return (path);
+	i = 0;
+	while (i < ft_strlen(path))
+	{
+		path[i] = path[i + 1];
+		i++;
+	}
+	temp = path;
+	path = ft_strjoin(home, path);
+	free(temp);
+	return (path);
 }
