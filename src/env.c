@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 13:58:13 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/29 14:51:02 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/05/30 17:57:15 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,20 @@ char	*get_env_value(char	*key, t_env_table *env)
 void	set_env_value(char *key, char *value, t_env_table *env)
 {
 	size_t	i;
-	char	*new_val;
+	char	*dup_value;
 
 	i = 0;
+	if (!value || !key)
+		return ;
 	while (i < env->size)
 	{
 		if (ft_strncmp(env->table[i].name, key, ft_strlen(key) + 1) == 0)
 		{
-			new_val = ft_strdup(value);
-			if (new_val)
-			{
-				free(env->table[i].value);
-				env->table[i].value = new_val;
-			}
+			dup_value = ft_strdup(value);
+			if (!dup_value)
+				return ;
+			free(env->table[i].value);
+			env->table[i].value = dup_value;
 			return ;
 		}
 		i++;

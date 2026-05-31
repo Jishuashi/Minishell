@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/29 16:48:47 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/05/30 17:40:53 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 	int		j;
 
 	argc = count_args(tokens, *i);
-	cmd = malloc(sizeof(t_cmd) + sizeof(char *) * (argc + 1));
+	cmd = malloc(sizeof(t_cmd) + sizeof(char *) * (argc + 2));
 	if (!cmd)
 		return (NULL);
 	cmd->path = NULL;
 	cmd->args = (char **)((char *)cmd + sizeof(t_cmd));
 	j = 0;
-	while (j <= argc)
+	while (j <= (argc + 1))
 	{
 		cmd->args[j] = NULL;
 		j++;
@@ -59,30 +59,58 @@ t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 
 void	push_arg(t_cmd *cmd, char **tokens, int *i, t_env_table *env)
 {
-	int	j;
+	int		j;
+	char	*arg;
+	char	*home;
+	char	*temp;
+	int		expanded;
 
 	j = 0;
 	while (cmd->args[j] != NULL)
 		j++;
+	arg = tokens[*i];
+	expanded = 0;
+	if (arg && arg[0] == '~')
+	{
+		home = get_env_value("HOME", env);
+		if (home)
+		{
+			temp = ft_strdup(arg);
+			if (temp)
+			{
+				arg = extend_tilde(temp, home);
+				if (arg)
+					expanded = 1;
+				else
+					arg = tokens[*i];
+			}
+		}
+	}
 	if (j == 0)
 	{
-		cmd->args[j] = ft_strdup(tokens[*i]);
+		cmd->args[j] = ft_strdup(arg);
 		if (!cmd->args[j])
 		{
+			if (expanded)
+				free(arg);
 			(*i)++;
 			return ;
 		}
-		cmd->path = check_path_cmd(tokens[*i], env);
+		cmd->path = check_path_cmd(arg, env);
 	}
 	else
 	{
-		cmd->args[j] = ft_strdup(tokens[*i]);
+		cmd->args[j] = ft_strdup(arg);
 		if (!cmd->args[j])
 		{
+			if (expanded)
+				free(arg);
 			(*i)++;
 			return ;
 		}
 	}
+	if (expanded)
+		free(arg);
 	(*i)++;
 }
 

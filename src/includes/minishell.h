@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 13:33:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/26 23:35:55 by louka            ###   ########.fr       */
+/*   Updated: 2026/05/30 15:59:53 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <errno.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <dirent.h>
+# include <stddef.h>
 
 # include "../libft/libft.h"
 # include "prompt.h"

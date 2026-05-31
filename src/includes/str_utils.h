@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_files.h                                      :+:      :+:    :+:   */
+/*   str_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/25 18:03:54 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/30 15:47:02 by hchartie         ###   ########.fr       */
+/*   Created: 2026/05/31 13:28:46 by hchartie          #+#    #+#             */
+/*   Updated: 2026/05/31 13:37:07 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_FILES_H
-# define PARSE_FILES_H
+#ifndef STR_UTILS_H
+# define STR_UTILS_H
 
-typedef struct s_file		t_file;
-typedef struct s_env_table	t_env_table;
+char *ft_strfreejoin(char *s, char *join);
 
-t_file	**parse_files(char **tokens, t_file **files, int len, t_env_table *env);
-
-#endif
+# endif
