@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 16:57:12 by ldplace           #+#    #+#             */
-/*   Updated: 2026/05/30 16:57:23 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/31 14:13:41 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,3 @@ int	execute_builtin(t_cmd *cmd, t_env_table *env)
 		ft_cd(cmd->args, env);
 	return (0);
 }
-

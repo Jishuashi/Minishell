@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 14:09:17 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/30 15:37:35 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/31 14:13:22 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ void	print_env(t_env_table *env)
 	}
 }
 
-char *extend_tilde(char *path, char *home)
+char	*extend_tilde(char *path, char *home)
 {
 	size_t	i;
-	char 	*temp;
+	char	*temp;
 
 	if (!path)
 		return (NULL);
