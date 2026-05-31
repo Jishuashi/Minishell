@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 16:57:12 by ldplace           #+#    #+#             */
-/*   Updated: 2026/05/31 14:13:41 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/31 15:57:42 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	print_echo(t_cmd *cmd, int i)
 
 static void	ft_echo(t_cmd *cmd)
 {
-	if (cmd->args[1][0] == '-')
+	if (cmd->args[1] != NULL && cmd->args[1][0] == '-')
 	{
 		if (ft_strlen(cmd->args[1]) == 2)
 		{

@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/31 14:30:41 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/05/31 15:48:06 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ t_cmd	**parse_cmd(char **token, t_cmd **cmds, t_env_table *env)
 		cmds[j] = fill_cmd(token, &i, env);
 		if (!cmds[j])
 			return (NULL);
-		j++;
+		if (cmds[j]->args[0] != NULL)
+			j++;
+		else
+			free(cmds[j]);
 	}
 	cmds[j] = NULL;
 	return (cmds);
