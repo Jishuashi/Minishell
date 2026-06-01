@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:25 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/30 17:34:35 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/01 17:30:34 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	ft_cmd_not_found_two(char *path);
 void	fill_args(t_cmd *cmd, char **tokens, int *i, t_env_table *env);
 char	*dup_path_token(char *path);
 char	*search_cmd_in_paths(char **paths, char *path);
+char	*expand_tilde_if_needed(char *arg, t_env_table *env);
 
 #endif

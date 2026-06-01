@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/31 15:48:06 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/01 17:32:19 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,23 +64,22 @@ void	push_arg(t_cmd *cmd, char **tokens, int *i, t_env_table *env)
 {
 	int		j;
 	char	*arg;
-	char	*exp;
 
 	j = 0;
 	while (cmd->args[j])
 		j++;
-	arg = tokens[*i];
-	exp = NULL;
-	if (arg && arg[0] == '~')
-		exp = extend_tilde(ft_strdup(arg), get_env_value("HOME", env));
-	if (exp)
-		arg = exp;
+	arg = expand_tilde_if_needed(tokens[*i], env);
 	cmd->args[j] = ft_strdup(arg);
 	if (!cmd->args[j])
-		return (free(exp), ++(*i), (void)0);
+	{
+		if (arg != tokens[*i])
+			free(arg);
+		return (++(*i), (void)0);
+	}
 	if (j == 0)
 		cmd->path = check_path_cmd(arg, env);
-	free(exp);
+	if (arg != tokens[*i])
+		free(arg);
 	++(*i);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 16:57:12 by ldplace           #+#    #+#             */
-/*   Updated: 2026/06/01 16:41:12 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/01 17:28:36 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	print_echo(t_cmd *cmd, int i, int opt)
 {
 	if (cmd->args[i] != NULL)
 	{
- 		printf("%s", cmd->args[i]);
+		printf("%s", cmd->args[i]);
 		if (cmd->args[i + 1] != NULL)
 		{
 			printf(" ");
