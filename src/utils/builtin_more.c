@@ -56,10 +56,10 @@ static void	print_export_env(t_env_table *env)
 	i = 0;
 	while (i < env->size)
 	{
-		printf("declare -x %s", sorted[i].name);
+		ft_printf("declare -x %s", sorted[i].name);
 		if (sorted[i].value && sorted[i].value[0])
-			printf("=\"%s\"", sorted[i].value);
-		printf("\n");
+			ft_printf("=\"%s\"", sorted[i].value);
+		ft_printf("\n");
 		i++;
 	}
 	free(sorted);
@@ -69,7 +69,7 @@ void	exit_shell(int status, t_env_table *env)
 {
 	if (env)
 		free_env(env);
-	printf("exit\n");
+	ft_printf("exit\n");
 	rl_clear_history();
 	exit(status);
 }

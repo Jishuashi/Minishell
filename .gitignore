@@ -13,3 +13,5 @@ readline.supp
 *.log
 test
 *.py
+minishell_tester
+Tester
