@@ -6,11 +6,28 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 16:48:50 by louka2b           #+#    #+#             */
-/*   Updated: 2026/05/30 17:34:35 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/01 17:30:07 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char	*expand_tilde_if_needed(char *arg, t_env_table *env)
+{
+	char	*dup_arg;
+	char	*exp;
+
+	if (!arg || arg[0] != '~')
+		return (arg);
+	dup_arg = ft_strdup(arg);
+	if (!dup_arg)
+		return (arg);
+	exp = extend_tilde(dup_arg, get_env_value("HOME", env));
+	if (exp)
+		return (exp);
+	free(dup_arg);
+	return (arg);
+}
 
 char	*dup_path_token(char *path)
 {

@@ -6,13 +6,13 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 16:57:12 by ldplace           #+#    #+#             */
-/*   Updated: 2026/05/31 15:57:42 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/01 17:28:36 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	print_echo(t_cmd *cmd, int i)
+static void	print_echo(t_cmd *cmd, int i, int opt)
 {
 	if (cmd->args[i] != NULL)
 	{
@@ -20,26 +20,26 @@ static void	print_echo(t_cmd *cmd, int i)
 		if (cmd->args[i + 1] != NULL)
 		{
 			printf(" ");
-			print_echo(cmd, i + 1);
+			print_echo(cmd, i + 1, opt);
 		}
 	}
 }
 
 static void	ft_echo(t_cmd *cmd)
 {
-	if (cmd->args[1] != NULL && cmd->args[1][0] == '-')
+	int	i;
+	int	opt;
+
+	i = 1;
+	opt = 0;
+	while (cmd->args[i] != NULL && !ft_strncmp(cmd->args[i], "-n", 3))
 	{
-		if (ft_strlen(cmd->args[1]) == 2)
-		{
-			if (cmd->args[1][1] == 'n')
-			{
-				print_echo(cmd, 2);
-				return ;
-			}
-		}
+		opt++;
+		i++;
 	}
-	print_echo(cmd, 1);
-	printf("\n");
+	print_echo(cmd, i, opt);
+	if (!opt)
+		printf("\n");
 }
 
 int	is_builtin(char *cmd)

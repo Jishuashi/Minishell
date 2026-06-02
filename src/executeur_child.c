@@ -6,11 +6,37 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 16:40:18 by louka             #+#    #+#             */
-/*   Updated: 2026/05/27 12:10:26 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/01 17:29:21 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+static void	apply_single_redir(t_exec_res *res, int i)
+{
+	if (res->opens[i]->fd < 0)
+	{
+		perror("minishell");
+		exit(1);
+	}
+	if (!ft_strncmp(res->opens[i]->type, "IN", 2)
+		|| !ft_strncmp(res->opens[i]->type, "HEREDOC", 7))
+	{
+		if (dup2(res->opens[i]->fd, 0) == -1)
+		{
+			perror("minishell");
+			exit(1);
+		}
+	}
+	else
+	{
+		if (dup2(res->opens[i]->fd, 1) == -1)
+		{
+			perror("minishell");
+			exit(1);
+		}
+	}
+}
 
 void	child_exec_body(int i, t_exec_res *res, t_args *args,
 		t_env_table *env)
@@ -53,13 +79,7 @@ void	child_apply_redirs(int i, t_exec_res *res, t_args *args)
 	while (args->files && args->files[j])
 	{
 		if (args->files[j]->cmd_index == i)
-		{
-			if (!ft_strncmp(res->opens[j]->type, "IN", 2)
-				|| !ft_strncmp(res->opens[j]->type, "HEREDOC", 7))
-				dup2(res->opens[j]->fd, 0);
-			else
-				dup2(res->opens[j]->fd, 1);
-		}
+			apply_single_redir(res, j);
 		j++;
 	}
 }

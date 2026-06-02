@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 22:34:42 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/31 15:43:32 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/01 17:14:31 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static t_openf	*process_file(t_file *file)
 	res->status = check_files(file);
 	res->type = file->type;
 	res->fd = ft_open(file);
+	if (res->fd < 0)
+		res->status = -1;
 	return (res);
 }
 
@@ -74,8 +76,16 @@ static int	ft_open(t_file *file)
 	if (!ft_strncmp("IN", file->type, 2))
 		return (open(file->path, O_RDONLY));
 	if (!ft_strncmp("OUT", file->type, 3))
+	{
+		if (!ft_strncmp(file->path, "/dev/null", 9))
+			return (open(file->path, O_WRONLY));
 		return (open(file->path, O_WRONLY | O_TRUNC | O_CREAT, 0644));
+	}
 	if (!ft_strncmp("APPEND", file->type, 7))
+	{
+		if (!ft_strncmp(file->path, "/dev/null", 9))
+			return (open(file->path, O_WRONLY));
 		return (open(file->path, O_WRONLY | O_APPEND | O_CREAT, 0644));
+	}
 	return (0);
 }

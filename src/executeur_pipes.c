@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executeur_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 17:40:09 by louka             #+#    #+#             */
-/*   Updated: 2026/05/15 17:05:58 by louka            ###   ########.fr       */
+/*   Updated: 2026/06/01 17:33:34 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ t_openf	**open_and_check(t_args *args)
 		if (opens[i]->status <= 0)
 		{
 			if (ft_strncmp(opens[i]->type, "HEREDOC", 7) != 0)
+			{
+				free_opens(opens);
 				return (NULL);
+			}
 		}
 		i++;
 	}

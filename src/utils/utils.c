@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 14:09:17 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/31 14:13:22 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/01 17:23:28 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*extend_tilde(char *path, char *home)
 {
 	size_t	i;
 	char	*temp;
+	char	*result;
 
 	if (!path)
 		return (NULL);
@@ -69,7 +70,7 @@ char	*extend_tilde(char *path, char *home)
 		i++;
 	}
 	temp = path;
-	path = ft_strjoin(home, path);
+	result = ft_strjoin(home, path);
 	free(temp);
-	return (path);
+	return (result);
 }
