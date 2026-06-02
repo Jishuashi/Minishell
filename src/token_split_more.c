@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   token_split_more.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/17 12:30:32 by louka             #+#    #+#             */
-/*   Updated: 2026/06/02 14:37:37 by louka            ###   ########.fr       */
+/*   Created: 2026/06/02 14:35:58 by louka             #+#    #+#             */
+/*   Updated: 2026/06/02 16:06:09 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#include "includes/minishell.h"
 
-char	**get_token(char *line, t_env_table *env, int last_status);
-char	**split_token(char **token, char *line, t_env_table *env,
-			int last_status);
-int		len_token(char	**tokens);
-char	toggle_quote(char quote, char c);
-int		is_quote(char c);
+int	is_quote(char c)
+{
+	return (c == '"' || c == '\'');
+}
 
-#endif
+char	toggle_quote(char quote, char c)
+{
+	if (quote == c)
+		return (0);
+	return (c);
+}
