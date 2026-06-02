@@ -3,16 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 16:57:12 by ldplace           #+#    #+#             */
-/*   Updated: 2026/06/01 17:28:36 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/02 16:03:36 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	print_echo(t_cmd *cmd, int i, int opt)
+int	is_valid_exit_status(char *arg)
+{
+	int	i;
+
+	if (!arg || !arg[0])
+		return (0);
+	i = 0;
+	if (arg[i] == '+' || arg[i] == '-')
+		i++;
+	if (!ft_isdigit(arg[i]))
+		return (0);
+	while (arg[i])
+	{
+		if (!ft_isdigit(arg[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	print_echo(t_cmd *cmd, int i, int opt)
 {
 	if (cmd->args[i] != NULL)
 	{
@@ -25,7 +45,7 @@ static void	print_echo(t_cmd *cmd, int i, int opt)
 	}
 }
 
-static void	ft_echo(t_cmd *cmd)
+void	ft_echo(t_cmd *cmd)
 {
 	int	i;
 	int	opt;
@@ -56,26 +76,5 @@ int	is_builtin(char *cmd)
 
 int	execute_builtin(t_cmd *cmd, t_env_table *env)
 {
-	if (!ft_strncmp(cmd->args[0], "pwd", 4))
-		printf("%s\n", get_env_value("PWD", env));
-	else if (!ft_strncmp(cmd->args[0], "env", 4))
-		print_env(env);
-	else if (!ft_strncmp(cmd->args[0], "echo", 4))
-		ft_echo(cmd);
-	else if (!ft_strncmp(cmd->args[0], "exit", 4))
-	{
-		if (cmd->args[1])
-			return (-(ft_atoi(cmd->args[1]) + 1));
-		return (-1);
-	}
-	else if (!ft_strncmp(cmd->args[0], "unset", 5))
-	{
-		if (cmd->args[1])
-			remove_env_value(cmd->args[1], env);
-	}
-	else if (!ft_strncmp(cmd->args[0], "export", 7))
-		ft_export(cmd->args, env);
-	else if (!ft_strncmp(cmd->args[0], "cd", 3))
-		ft_cd(cmd->args, env);
-	return (0);
+	return (apply_builtin_action(cmd, env));
 }
