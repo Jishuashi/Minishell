@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 16:00:21 by louka             #+#    #+#             */
-/*   Updated: 2026/06/02 16:59:39 by louka            ###   ########.fr       */
+/*   Updated: 2026/06/02 17:34:14 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	execute_exit_builtin(t_cmd *cmd)
 {
+	int	status;
+
 	if (!cmd->args[1])
 		return (-1);
 	if (!is_valid_exit_status(cmd->args[1]))
@@ -21,9 +23,18 @@ int	execute_exit_builtin(t_cmd *cmd)
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(cmd->args[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
-		return (-3);
+		return (-256);
 	}
-	return (-(ft_atoi(cmd->args[1]) + 1));
+	if (cmd->args[2])
+	{
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		return (1);
+	}
+	status = ft_atoi(cmd->args[1]);
+	status %= 256;
+	if (status < 0)
+		status += 256;
+	return (-(status + 1));
 }
 
 int	apply_builtin_action(t_cmd *cmd, t_env_table *env)
@@ -42,7 +53,7 @@ int	apply_builtin_action(t_cmd *cmd, t_env_table *env)
 			remove_env_value(cmd->args[1], env);
 	}
 	else if (!ft_strncmp(cmd->args[0], "export", 7))
-		ft_export(cmd->args, env);
+		return (ft_export(cmd->args, env));
 	else if (!ft_strncmp(cmd->args[0], "cd", 3))
 		return (ft_cd(cmd->args, env));
 	return (0);

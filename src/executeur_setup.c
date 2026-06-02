@@ -82,7 +82,20 @@ int	execute_args(t_args *args, t_env_table *env)
 	}
 	if (res.n_cmds == 1 && args->cmds && args->cmds[0] && args->cmds[0]->args
 		&& is_builtin(args->cmds[0]->args[0]))
+	{
+		if (args->nb_file > 0)
+		{
+			res.opens = open_and_check(args);
+			if (!res.opens)
+			{
+				free(res.pids);
+				if (res.pipes)
+					free(res.pipes);
+				return (1);
+			}
+		}
 		return (run_builtin(&res, args, env));
+	}
 	if (spawn_children(&res, args, env) == -1)
 		return (1);
 	close_parent_pipes(res.pipes, res.n_cmds);

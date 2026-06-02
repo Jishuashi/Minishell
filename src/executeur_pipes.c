@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executeur_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/14 17:40:09 by louka             #+#    #+#             */
-/*   Updated: 2026/06/01 17:33:34 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/02 17:21:18 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,7 @@ int	alloc_exec_resources(t_args *args, t_exec_res *res)
 	n_cmds = (int)count_cmds(args->cmds);
 	if (n_cmds == 0)
 		return (0);
-	res->opens = open_and_check(args);
-	if (!res->opens)
-		return (-1);
+	res->opens = NULL;
 	res->pids = malloc(sizeof(pid_t) * n_cmds);
 	if (!res->pids)
 		return (-1);

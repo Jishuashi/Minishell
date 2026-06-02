@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/06/01 17:32:19 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/02 17:25:44 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,43 @@ t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 void	push_arg(t_cmd *cmd, char **tokens, int *i, t_env_table *env)
 {
 	int		j;
+	int		quoted;
 	char	*arg;
+	char	*clean;
 
 	j = 0;
 	while (cmd->args[j])
 		j++;
-	arg = expand_tilde_if_needed(tokens[*i], env);
+	quoted = (tokens[*i][0] == '\1');
+	if (quoted)
+		clean = ft_strdup(tokens[*i] + 1);
+	else
+		clean = tokens[*i];
+	if (quoted && !clean)
+		return (++(*i), (void)0);
+	arg = expand_tilde_if_needed(clean, env);
 	cmd->args[j] = ft_strdup(arg);
 	if (!cmd->args[j])
 	{
-		if (arg != tokens[*i])
+		if (quoted)
+		{
+			if (arg != clean)
+				free(arg);
+			free(clean);
+		}
+		else if (arg != tokens[*i])
 			free(arg);
 		return (++(*i), (void)0);
 	}
 	if (j == 0)
 		cmd->path = check_path_cmd(arg, env);
-	if (arg != tokens[*i])
+	if (quoted)
+	{
+		if (arg != clean)
+			free(arg);
+		free(clean);
+	}
+	else if (arg != tokens[*i])
 		free(arg);
 	++(*i);
 }

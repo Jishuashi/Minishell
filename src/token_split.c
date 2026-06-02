@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 21:45:48 by louka             #+#    #+#             */
-/*   Updated: 2026/06/02 16:59:26 by louka            ###   ########.fr       */
+/*   Updated: 2026/06/02 17:25:44 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ static int	token_len(const char *line, int i)
 	while (line[i] && (line[i] != ' ' || quote))
 	{
 		if (is_quote(line[i]) && (!quote || quote == line[i]))
-		{
 			quote = toggle_quote(quote, line[i]);
-			i++;
-		}
 		len++;
 		i++;
 	}
@@ -68,6 +65,7 @@ static int	append_split_token(char **slot, t_split_token_ctx *ctx)
 {
 	int		quoted;
 	char	*expanded;
+	char	*marked;
 
 	*slot = ft_calloc(token_len(ctx->line, *ctx->i) + 1, sizeof(char));
 	if (!*slot)
@@ -82,6 +80,19 @@ static int	append_split_token(char **slot, t_split_token_ctx *ctx)
 		free(expanded);
 		*slot = NULL;
 		return (0);
+	}
+	if (quoted)
+	{
+		marked = ft_calloc(ft_strlen(expanded) + 2, sizeof(char));
+		if (!marked)
+		{
+			free(expanded);
+			return (-1);
+		}
+		marked[0] = '\1';
+		ft_strlcpy(marked + 1, expanded, ft_strlen(expanded) + 1);
+		free(expanded);
+		expanded = marked;
 	}
 	*slot = expanded;
 	return (1);

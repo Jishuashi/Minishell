@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 13:51:37 by hchartie          #+#    #+#             */
-/*   Updated: 2026/06/02 16:53:11 by louka            ###   ########.fr       */
+/*   Updated: 2026/06/02 17:29:33 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ int	ft_cd(char **args, t_env_table *env)
 static void	exec_cd(char *path, t_env_table *env)
 {
 	char	buffer[PATH_MAX];
+	char	*oldpwd;
 
+	oldpwd = get_env_value("PWD", env);
+	if (oldpwd)
+		set_env_value("OLDPWD", oldpwd, env);
 	if (chdir(path) == -1)
 		return (perror("cd"));
 	getcwd(buffer, sizeof(buffer));

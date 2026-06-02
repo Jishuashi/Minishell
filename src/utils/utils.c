@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 14:09:17 by hchartie          #+#    #+#             */
-/*   Updated: 2026/06/01 17:23:28 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/02 17:34:14 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ void	print_env(t_env_table *env)
 	i = 0;
 	while (i < env->size)
 	{
-		ft_printf("%s=", env->table[i].name);
-		ft_printf("%s\n", env->table[i].value);
+		if (ft_strncmp(env->table[i].name, "?", 2) != 0)
+		{
+			ft_printf("%s=", env->table[i].name);
+			ft_printf("%s\n", env->table[i].value);
+		}
 		i++;
 	}
 }
