@@ -13,22 +13,24 @@
 #include "includes/minishell.h"
 
 static int		ft_open(t_file *file);
-static t_openf	*process_file(t_file *file);
+static t_openf	*process_file(t_file *file, int *failed);
 static void		free_open_files(t_openf **opens);
 static void		print_open_error(t_file *file);
 
 t_openf	**open_files(t_args *args)
 {
 	int		i;
+	int		failed;
 	t_openf	**res;
 
 	i = 0;
+	failed = 0;
 	res = (t_openf **)ft_calloc((args->nb_file + 1), sizeof(t_openf *));
 	if (!res)
 		return (NULL);
 	while (args->files[i])
 	{
-		res[i] = process_file(args->files[i]);
+		res[i] = process_file(args->files[i], &failed);
 		if (!res[i])
 		{
 			free_open_files(res);
@@ -55,7 +57,7 @@ static void	free_open_files(t_openf **opens)
 	free(opens);
 }
 
-static t_openf	*process_file(t_file *file)
+static t_openf	*process_file(t_file *file, int *failed)
 {
 	t_openf	*res;
 
@@ -64,14 +66,22 @@ static t_openf	*process_file(t_file *file)
 	res = (t_openf *)malloc(sizeof(t_openf));
 	if (!res)
 		return (NULL);
-	res->status = check_files(file);
 	res->type = file->type;
+	if (*failed)
+	{
+		res->status = -1;
+		res->fd = -1;
+		return (res);
+	}
 	res->fd = ft_open(file);
 	if (res->fd < 0)
 	{
 		print_open_error(file);
 		res->status = -1;
+		*failed = 1;
 	}
+	else
+		res->status = 1;
 	return (res);
 }
 

@@ -14,33 +14,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-static int	print_file_err(char *path)
-{
-	ft_putstr_fd("minishell: ", 2);
-	perror(path);
-	return (0);
-}
-
-int	check_files(t_file *file)
-{
-	int	fd;
-
-	if (!file || !file->path || file->type[0] == 'H')
-		return (1);
-	if (file->type[0] == 'I')
-		fd = open(file->path, O_RDONLY);
-	else if (file->type[0] == 'O')
-		fd = open(file->path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (file->type[0] == 'A')
-		fd = open(file->path, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else
-		return (1);
-	if (fd < 0)
-		return (print_file_err(file->path));
-	close(fd);
-	return (1);
-}
-
 char	*get_file_type(char **tokens, int idx)
 {
 	char	*res;

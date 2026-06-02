@@ -17,7 +17,6 @@
 typedef struct s_file	t_file;
 size_t	count_double_char(char **tab);
 void	ft_free_all(char **pfree);
-int		check_files(t_file	*file);
 void	print_env(t_env_table *env);
 char	*extend_tilde(char *path, char *home);
 char	*get_file_type(char **tokens, int idx);
