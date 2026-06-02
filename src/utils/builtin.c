@@ -36,10 +36,10 @@ void	print_echo(t_cmd *cmd, int i, int opt)
 {
 	if (cmd->args[i] != NULL)
 	{
-		printf("%s", cmd->args[i]);
+		ft_printf("%s", cmd->args[i]);
 		if (cmd->args[i + 1] != NULL)
 		{
-			printf(" ");
+			ft_printf(" ");
 			print_echo(cmd, i + 1, opt);
 		}
 	}
@@ -59,7 +59,7 @@ void	ft_echo(t_cmd *cmd)
 	}
 	print_echo(cmd, i, opt);
 	if (!opt)
-		printf("\n");
+		ft_printf("\n");
 }
 
 int	is_builtin(char *cmd)

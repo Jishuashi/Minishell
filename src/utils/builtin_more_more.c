@@ -29,7 +29,7 @@ int	execute_exit_builtin(t_cmd *cmd)
 int	apply_builtin_action(t_cmd *cmd, t_env_table *env)
 {
 	if (!ft_strncmp(cmd->args[0], "pwd", 4))
-		printf("%s\n", get_env_value("PWD", env));
+		ft_printf("%s\n", get_env_value("PWD", env));
 	else if (!ft_strncmp(cmd->args[0], "env", 4))
 		print_env(env);
 	else if (!ft_strncmp(cmd->args[0], "echo", 4))
