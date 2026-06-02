@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 22:34:42 by hchartie          #+#    #+#             */
-/*   Updated: 2026/06/01 17:14:31 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/02 17:17:58 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int		ft_open(t_file *file);
 static t_openf	*process_file(t_file *file);
 static void		free_open_files(t_openf **opens);
+static void		print_open_error(t_file *file);
 
 t_openf	**open_files(t_args *args)
 {
@@ -67,8 +68,20 @@ static t_openf	*process_file(t_file *file)
 	res->type = file->type;
 	res->fd = ft_open(file);
 	if (res->fd < 0)
+	{
+		print_open_error(file);
 		res->status = -1;
+	}
 	return (res);
+}
+
+static void	print_open_error(t_file *file)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(file->path, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	ft_putstr_fd("\n", 2);
 }
 
 static int	ft_open(t_file *file)

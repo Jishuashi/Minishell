@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:04:03 by hchartie          #+#    #+#             */
-/*   Updated: 2026/06/01 17:32:19 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/02 17:25:44 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,68 +60,48 @@ t_cmd	*fill_cmd(char **tokens, int *i, t_env_table *env)
 	return (cmd);
 }
 
+static void	clean_push_arg(int quoted, char *arg, char *clean, char *token)
+{
+	if (quoted)
+	{
+		if (arg != clean)
+			free(arg);
+		free(clean);
+	}
+	else if (arg != token)
+		free(arg);
+}
+
+static char	*get_clean_arg(char *token, int *quoted)
+{
+	*quoted = (token[0] == '\1');
+	if (*quoted)
+		return (ft_strdup(token + 1));
+	return (token);
+}
+
 void	push_arg(t_cmd *cmd, char **tokens, int *i, t_env_table *env)
 {
 	int		j;
+	int		quoted;
 	char	*arg;
+	char	*clean;
 
 	j = 0;
 	while (cmd->args[j])
 		j++;
-	arg = expand_tilde_if_needed(tokens[*i], env);
+	clean = get_clean_arg(tokens[*i], &quoted);
+	if (quoted && !clean)
+		return (++(*i), (void)0);
+	arg = expand_tilde_if_needed(clean, env);
 	cmd->args[j] = ft_strdup(arg);
 	if (!cmd->args[j])
 	{
-		if (arg != tokens[*i])
-			free(arg);
+		clean_push_arg(quoted, arg, clean, tokens[*i]);
 		return (++(*i), (void)0);
 	}
 	if (j == 0)
 		cmd->path = check_path_cmd(arg, env);
-	if (arg != tokens[*i])
-		free(arg);
+	clean_push_arg(quoted, arg, clean, tokens[*i]);
 	++(*i);
-}
-
-char	*check_path_cmd(char *path, t_env_table *env)
-{
-	char	*path_env;
-	char	**paths;
-
-	if (!path)
-		return (NULL);
-	if (is_builtin(path))
-		return (NULL);
-	if (ft_strchr(path, '/'))
-		return (dup_path_token(path));
-	path_env = get_env_value("PATH", env);
-	if (!path_env)
-		return (ft_cmd_not_found_two(path), NULL);
-	paths = ft_split(path_env, ':');
-	if (!paths)
-		return (NULL);
-	return (search_cmd_in_paths(paths, path));
-}
-
-int	count_args(char **tokens, int i)
-{
-	int	argc;
-
-	argc = 0;
-	while (tokens[i] && tokens[i][0] != '|')
-	{
-		if (tokens && (tokens[i][0] == '<' || tokens[i][0] == '>'))
-		{
-			if (tokens[i + 1])
-				i += 2;
-			else
-				i++;
-		}
-		else
-		{
-			argc++;
-			i++;
-		}
-	}
-	return (argc);
 }

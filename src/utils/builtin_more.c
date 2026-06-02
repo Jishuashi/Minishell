@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 13:55:33 by louka2b           #+#    #+#             */
-/*   Updated: 2026/06/02 14:55:46 by louka            ###   ########.fr       */
+/*   Updated: 2026/06/02 17:25:44 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,54 +65,78 @@ static void	print_export_env(t_env_table *env)
 	free(sorted);
 }
 
-void	exit_shell(int status, t_env_table *env)
+static int	check_export_identifier(char *arg)
 {
-	if (env)
-		free_env(env);
-	ft_printf("exit\n");
-	rl_clear_history();
-	exit(status);
+	int	i;
+
+	if (!arg || !arg[0] || (!ft_isalpha(arg[0]) && arg[0] != '_'))
+	{
+		ft_putstr_fd("minishell: export: ", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd(": not a valid identifier\n", 2);
+		return (1);
+	}
+	i = 1;
+	while (arg[i] && arg[i] != '=')
+	{
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+		{
+			ft_putstr_fd("minishell: export: ", 2);
+			ft_putstr_fd(arg, 2);
+			ft_putstr_fd(": not a valid identifier\n", 2);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
-static void	export_one(char *arg, t_env_table *env)
+static int	export_one(char *arg, t_env_table *env)
 {
 	char	*equal;
 	char	*key;
 	char	*value;
 
+	if (check_export_identifier(arg))
+		return (1);
 	equal = ft_strchr(arg, '=');
 	if (!equal)
 	{
 		set_env_value(arg, "", env);
-		return ;
+		return (0);
 	}
 	key = ft_substr(arg, 0, equal - arg);
 	if (!key)
-		return ;
+		return (1);
 	value = ft_strdup(equal + 1);
 	if (!value)
 	{
 		free(key);
-		return ;
+		return (1);
 	}
 	set_env_value(key, value, env);
 	free(key);
 	free(value);
+	return (0);
 }
 
-void	ft_export(char **cmd, t_env_table *env)
+int	ft_export(char **cmd, t_env_table *env)
 {
 	int	i;
+	int	ret;
 
 	if (cmd[1] == NULL)
 	{
 		print_export_env(env);
-		return ;
+		return (0);
 	}
+	ret = 0;
 	i = 1;
 	while (cmd[i])
 	{
-		export_one(cmd[i], env);
+		if (export_one(cmd[i], env) != 0)
+			ret = 1;
 		i++;
 	}
+	return (ret);
 }

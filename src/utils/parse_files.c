@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 15:47:37 by hchartie          #+#    #+#             */
-/*   Updated: 2026/06/02 16:40:39 by louka            ###   ########.fr       */
+/*   Updated: 2026/06/02 17:35:15 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static char		*check_file_path(char *path, char type, t_env_table *env);
 static int		get_cmd_index(char **tokens, int idx);
 static t_file	*create_file_node(char **tokens, int *i, t_env_table *env);
-char			*get_file_type(char **tokens, int idx);
 
 t_file	**parse_files(char **tokens, t_file **files, int len, t_env_table *env)
 {
@@ -51,30 +50,17 @@ static t_file	*create_file_node(char **tokens, int *i, t_env_table *env)
 	file->type = get_file_type(tokens, *i);
 	if (file->type[0] == 'H')
 	{
-		file->delimiter = ft_strdup(tokens[++(*i)]);
+		file->delimiter = strip_quote_marker(tokens[++(*i)]);
 		file->path = check_file_path(NULL, file->type[0], env);
 	}
 	else
 	{
 		file->delimiter = NULL;
-		file->path = check_file_path(tokens[++(*i)], file->type[0], env);
+		file->path = check_file_path(strip_quote_marker(tokens[++(*i)]),
+				file->type[0], env);
 	}
 	file->cmd_index = cmd_idx;
 	return (file);
-}
-
-char	*get_file_type(char **tokens, int idx)
-{
-	char	*res;
-
-	res = "IN";
-	if (tokens[idx][0] == '>')
-		res = "OUT";
-	if (tokens[idx][1] == '<')
-		res = "HEREDOC";
-	if (tokens[idx][1] == '>')
-		res = "APPEND";
-	return (res);
 }
 
 static int	get_cmd_index(char **tokens, int idx)
@@ -97,26 +83,24 @@ static char	*check_file_path(char *path, char type, t_env_table *env)
 {
 	char	*home;
 	char	*result;
-	int		is_tilde;
+	int		i;
 
-	if (type == 'H')
+	if (type == 'H' || !path)
 		return (NULL);
-	if (!path)
-		return (NULL);
-	is_tilde = 0;
+	i = 0;
+	while (path[i] == ' ' || path[i] == '\t')
+		i++;
+	if (i > 0)
+		ft_memmove(path, path + i, ft_strlen(path + i) + 1);
 	if (path[0] == '~')
 	{
-		is_tilde = 1;
 		home = get_env_value("HOME", env);
 		path = extend_tilde(path, home);
 	}
-	if (ft_strchr(path, '/') && path[1] != '/')
-		result = ft_strjoin("./", path);
-	else if (ft_strchr(path, '/') && path[0] == '.')
+	if (path[0] == '/' || path[0] == '.')
 		result = ft_strdup(path);
 	else
 		result = ft_strjoin("./", path);
-	if (is_tilde)
-		free(path);
+	free(path);
 	return (result);
 }

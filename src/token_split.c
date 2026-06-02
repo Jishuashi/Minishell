@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 21:45:48 by louka             #+#    #+#             */
-/*   Updated: 2026/06/02 16:59:26 by louka            ###   ########.fr       */
+/*   Updated: 2026/06/02 17:25:44 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ static int	token_len(const char *line, int i)
 	while (line[i] && (line[i] != ' ' || quote))
 	{
 		if (is_quote(line[i]) && (!quote || quote == line[i]))
-		{
 			quote = toggle_quote(quote, line[i]);
-			i++;
-		}
 		len++;
 		i++;
 	}
@@ -50,20 +47,6 @@ static void	copy_token(char *dst, char *line, int *i)
 	dst[k] = '\0';
 }
 
-static int	has_quote(char *token)
-{
-	int	i;
-
-	i = 0;
-	while (token[i])
-	{
-		if (token[i] == '"' || token[i] == '\'')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 static int	append_split_token(char **slot, t_split_token_ctx *ctx)
 {
 	int		quoted;
@@ -82,6 +65,12 @@ static int	append_split_token(char **slot, t_split_token_ctx *ctx)
 		free(expanded);
 		*slot = NULL;
 		return (0);
+	}
+	if (quoted)
+	{
+		expanded = mark_quoted(expanded);
+		if (!expanded)
+			return (-1);
 	}
 	*slot = expanded;
 	return (1);

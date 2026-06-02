@@ -28,5 +28,7 @@ int		len_token(char	**tokens);
 char	*normalize_token_line(const char *line);
 char	toggle_quote(char quote, char c);
 int		is_quote(char c);
+int		has_quote(char *token);
+char	*mark_quoted(char *expanded);
 
 #endif

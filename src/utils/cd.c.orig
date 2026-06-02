@@ -23,11 +23,6 @@ int	ft_cd(char **args, t_env_table *env)
 	int		tilde;
 
 	home = get_env_value("HOME", env);
-	if (args[1] && args[2])
-	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		return (1);
-	}
 	path = args[1];
 	if (!path)
 		path = home;

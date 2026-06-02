@@ -50,3 +50,46 @@ char	*search_cmd_in_paths(char **paths, char *path)
 	ft_cmd_not_found(paths, path);
 	return (NULL);
 }
+
+char	*check_path_cmd(char *path, t_env_table *env)
+{
+	char	*path_env;
+	char	**paths;
+
+	if (!path)
+		return (NULL);
+	if (is_builtin(path))
+		return (NULL);
+	if (ft_strchr(path, '/'))
+		return (dup_path_token(path));
+	path_env = get_env_value("PATH", env);
+	if (!path_env)
+		return (ft_cmd_not_found_two(path), NULL);
+	paths = ft_split(path_env, ':');
+	if (!paths)
+		return (NULL);
+	return (search_cmd_in_paths(paths, path));
+}
+
+int	count_args(char **tokens, int i)
+{
+	int	argc;
+
+	argc = 0;
+	while (tokens[i] && tokens[i][0] != '|')
+	{
+		if (tokens && (tokens[i][0] == '<' || tokens[i][0] == '>'))
+		{
+			if (tokens[i + 1])
+				i += 2;
+			else
+				i++;
+		}
+		else
+		{
+			argc++;
+			i++;
+		}
+	}
+	return (argc);
+}

@@ -20,5 +20,7 @@ void	ft_free_all(char **pfree);
 int		check_files(t_file	*file);
 void	print_env(t_env_table *env);
 char	*extend_tilde(char *path, char *home);
+char	*get_file_type(char **tokens, int idx);
+char	*strip_quote_marker(char *token);
 
 #endif
