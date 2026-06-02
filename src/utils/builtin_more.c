@@ -65,21 +65,9 @@ static void	print_export_env(t_env_table *env)
 	free(sorted);
 }
 
-void	exit_shell(int status, t_env_table *env)
+static int	check_export_identifier(char *arg)
 {
-	if (env)
-		free_env(env);
-	ft_printf("exit\n");
-	rl_clear_history();
-	exit(status);
-}
-
-static int	export_one(char *arg, t_env_table *env)
-{
-	int		i;
-	char	*equal;
-	char	*key;
-	char	*value;
+	int	i;
 
 	if (!arg || !arg[0] || (!ft_isalpha(arg[0]) && arg[0] != '_'))
 	{
@@ -100,6 +88,17 @@ static int	export_one(char *arg, t_env_table *env)
 		}
 		i++;
 	}
+	return (0);
+}
+
+static int	export_one(char *arg, t_env_table *env)
+{
+	char	*equal;
+	char	*key;
+	char	*value;
+
+	if (check_export_identifier(arg))
+		return (1);
 	equal = ft_strchr(arg, '=');
 	if (!equal)
 	{

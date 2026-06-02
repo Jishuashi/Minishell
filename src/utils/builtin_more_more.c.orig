@@ -23,7 +23,7 @@ int	execute_exit_builtin(t_cmd *cmd)
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(cmd->args[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
-		return (-3);
+		return (-256);
 	}
 	if (cmd->args[2])
 	{

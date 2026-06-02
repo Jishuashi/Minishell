@@ -68,6 +68,22 @@ static int	wait_children_and_status(pid_t *pids, int n_cmds)
 	return (last_status);
 }
 
+static int	exec_single_builtin(t_exec_res *res, t_args *args, t_env_table *env)
+{
+	if (args->nb_file > 0)
+	{
+		res->opens = open_and_check(args);
+		if (!res->opens)
+		{
+			free(res->pids);
+			if (res->pipes)
+				free(res->pipes);
+			return (1);
+		}
+	}
+	return (run_builtin(res, args, env));
+}
+
 int	execute_args(t_args *args, t_env_table *env)
 {
 	t_exec_res	res;
@@ -82,20 +98,7 @@ int	execute_args(t_args *args, t_env_table *env)
 	}
 	if (res.n_cmds == 1 && args->cmds && args->cmds[0] && args->cmds[0]->args
 		&& is_builtin(args->cmds[0]->args[0]))
-	{
-		if (args->nb_file > 0)
-		{
-			res.opens = open_and_check(args);
-			if (!res.opens)
-			{
-				free(res.pids);
-				if (res.pipes)
-					free(res.pipes);
-				return (1);
-			}
-		}
-		return (run_builtin(&res, args, env));
-	}
+		return (exec_single_builtin(&res, args, env));
 	if (spawn_children(&res, args, env) == -1)
 		return (1);
 	close_parent_pipes(res.pipes, res.n_cmds);

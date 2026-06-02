@@ -47,25 +47,10 @@ static void	copy_token(char *dst, char *line, int *i)
 	dst[k] = '\0';
 }
 
-static int	has_quote(char *token)
-{
-	int	i;
-
-	i = 0;
-	while (token[i])
-	{
-		if (token[i] == '"' || token[i] == '\'')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 static int	append_split_token(char **slot, t_split_token_ctx *ctx)
 {
 	int		quoted;
 	char	*expanded;
-	char	*marked;
 
 	*slot = ft_calloc(token_len(ctx->line, *ctx->i) + 1, sizeof(char));
 	if (!*slot)
@@ -83,16 +68,9 @@ static int	append_split_token(char **slot, t_split_token_ctx *ctx)
 	}
 	if (quoted)
 	{
-		marked = ft_calloc(ft_strlen(expanded) + 2, sizeof(char));
-		if (!marked)
-		{
-			free(expanded);
+		expanded = mark_quoted(expanded);
+		if (!expanded)
 			return (-1);
-		}
-		marked[0] = '\1';
-		ft_strlcpy(marked + 1, expanded, ft_strlen(expanded) + 1);
-		free(expanded);
-		expanded = marked;
 	}
 	*slot = expanded;
 	return (1);
