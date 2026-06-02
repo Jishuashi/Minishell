@@ -35,6 +35,7 @@ SRCS        = \
 	src/utils/utils_files.c \
 	src/utils/builtin.c \
 	src/utils/builtin_more.c \
+	src/utils/builtin_more_more.c \
 	src/executeur.c \
 	src/executeur_setup.c \
 	src/executeur_helpers.c \
@@ -44,6 +45,7 @@ SRCS        = \
 	src/utils/parse_cmd_more_more.c \
 	src/utils/cd.c \
 	src/utils/str_utils.c \
+	src/token_split_more.c \
 
 OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
