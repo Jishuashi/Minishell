@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 16:00:21 by louka             #+#    #+#             */
-/*   Updated: 2026/06/02 16:00:39 by louka            ###   ########.fr       */
+/*   Updated: 2026/06/02 16:59:39 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ int	apply_builtin_action(t_cmd *cmd, t_env_table *env)
 	else if (!ft_strncmp(cmd->args[0], "export", 7))
 		ft_export(cmd->args, env);
 	else if (!ft_strncmp(cmd->args[0], "cd", 3))
-		ft_cd(cmd->args, env);
+		return (ft_cd(cmd->args, env));
 	return (0);
 }

@@ -6,19 +6,11 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 21:45:48 by louka             #+#    #+#             */
-/*   Updated: 2026/06/02 14:42:52 by louka            ###   ########.fr       */
+/*   Updated: 2026/06/02 16:59:26 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-
-typedef struct s_split_token_ctx
-{
-	char		*line;
-	int			*i;
-	t_env_table	*env;
-	int			last_status;
-}	t_split_token_ctx;
 
 static int	token_len(const char *line, int i)
 {

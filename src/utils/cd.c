@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 13:51:37 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/31 14:05:35 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/06/02 16:53:11 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int			is_directory(const char *path);
 static void	exec_cd(char *path, t_env_table *env);
 
-void	ft_cd(char **args, t_env_table *env)
+int	ft_cd(char **args, t_env_table *env)
 {
 	char	*home;
 	char	*path;
@@ -32,10 +32,11 @@ void	ft_cd(char **args, t_env_table *env)
 	if (tilde)
 		path = extend_tilde(path, home);
 	if (!path || access(path, F_OK) || !is_directory(path))
-		return (perror("cd"));
+		return (perror("cd"), 1);
 	exec_cd(path, env);
 	if (tilde)
 		free(path);
+	return (0);
 }
 
 static void	exec_cd(char *path, t_env_table *env)

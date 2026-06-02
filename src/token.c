@@ -6,7 +6,7 @@
 /*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 12:31:25 by louka             #+#    #+#             */
-/*   Updated: 2026/04/27 16:10:14 by louka            ###   ########.fr       */
+/*   Updated: 2026/06/02 17:01:44 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,23 @@ static int	count_tokens(const char *line)
 char	**get_token(char *line, t_env_table *env, int last_status)
 {
 	char	**tokens;
+	char	*normalized_line;
 	int		nb_de_token;
 
 	if (!line)
 		return (NULL);
-	nb_de_token = count_tokens(line);
+	normalized_line = normalize_token_line(line);
+	if (!normalized_line)
+		return (NULL);
+	nb_de_token = count_tokens(normalized_line);
 	tokens = ft_calloc(nb_de_token + 1, sizeof(char *));
 	if (!tokens)
+	{
+		free(normalized_line);
 		return (NULL);
-	split_token(tokens, line, env, last_status);
+	}
+	split_token(tokens, normalized_line, env, last_status);
+	free(normalized_line);
 	return (tokens);
 }
 
